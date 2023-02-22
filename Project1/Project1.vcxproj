@@ -132,7 +132,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="RenderWindow.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RenderViewport.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RenderWindow.h" />
+    <ClInclude Include="RenderViewport.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

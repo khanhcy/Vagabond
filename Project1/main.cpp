@@ -1,9 +1,7 @@
-﻿#include <SDL.h>
-#include <SDL_image.h>
-#include <iostream>
-
+﻿#include"commonFuncion.h"
+#include"Entity.h"
 #include "RenderWindow.h"
-#include "RenderViewport.h"
+
 
 int main(int argc, char* args[])
 {
@@ -13,11 +11,10 @@ int main(int argc, char* args[])
 	if (!(IMG_Init(IMG_INIT_PNG)))
 		std::cout << "IMG_init has failed. Error: " << SDL_GetError() << std::endl;
 
-	RenderViewport Viewport("GAME", 0, 0, 1280, 720);
+	RenderWindow window("GAME", SCREEN_WIDTH, SCREEN_HIGH);
 
-	Viewport.setViewport(Viewport.getRect());
+	Entity entity1(100, 50, window.loadTexture("image/loaded.png"));
 
-	SDL_Texture* grassTexture = Viewport.loadTexture("image/loaded.png");
 
 	bool gameRunning = true;
 
@@ -32,13 +29,13 @@ int main(int argc, char* args[])
 				gameRunning = false;
 		}
 
-		Viewport.clear();
-		Viewport.render(grassTexture);
-		Viewport.display();
+		window.clear();
+		window.render(entity1);
+		window.display();
 
 	}
 
-	Viewport.cleanUp();
+	window.cleanUp();
 	SDL_Quit();
 
 	return 0;

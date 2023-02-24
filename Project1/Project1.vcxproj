@@ -132,13 +132,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="commonFuncion.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="RenderWindow.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="RenderViewport.cpp" />
+    <ClCompile Include="Entity.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="commonFuncion.h" />
     <ClInclude Include="RenderWindow.h" />
-    <ClInclude Include="RenderViewport.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

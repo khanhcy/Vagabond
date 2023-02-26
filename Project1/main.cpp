@@ -13,8 +13,13 @@ int main(int argc, char* args[])
 
 	RenderWindow window("GAME", SCREEN_WIDTH, SCREEN_HIGH);
 
-	Entity entity1(100, 50, window.loadTexture("image/loaded.png"));
+	Entity backGround(0, 0, 0, 0, window.loadTexture("image/background/dots.png"));
 
+	SDL_Rect grect[4];
+	grect[0] = { 0,0,100,100 };
+	grect[1] = { 0,100,100,100 };
+	grect[2] = { 100,0,100,100 };
+	grect[3] = { 100,100,100,100 };
 
 	bool gameRunning = true;
 
@@ -22,15 +27,25 @@ int main(int argc, char* args[])
 
 	while (gameRunning)
 	{
-		// Get our controls and events
 		while (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_QUIT)
 				gameRunning = false;
 		}
-
+		SDL_SetRenderDrawColor(window.getRenderer(), 0xFF, 0xFF, 0xFF, 0xFF);
 		window.clear();
-		window.render(entity1);
+		backGround.setEntity(0, 0, grect[0].w, grect[0].h);
+		backGround.setCurrentFrame(grect[0]);
+		window.render(backGround);
+		backGround.setEntity(SCREEN_WIDTH - grect[1].w, 0, grect[1].h, grect[1].h);
+		backGround.setCurrentFrame(grect[1]);
+		window.render(backGround);
+		backGround.setEntity(0,SCREEN_HIGH - grect[2].h, grect[2].h, grect[2].h);
+		backGround.setCurrentFrame(grect[2]);
+		window.render(backGround);
+		backGround.setEntity(SCREEN_WIDTH - grect[3].w, SCREEN_HIGH - grect[3].h, grect[3].h, grect[3].h);
+		backGround.setCurrentFrame(grect[3]);
+		window.render(backGround);
 		window.display();
 
 	}

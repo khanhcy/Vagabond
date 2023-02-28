@@ -1,6 +1,12 @@
 ﻿  main.cpp
-D:\hoc\làm game\Project\Project1\main.cpp(40,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\main.cpp(43,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\main.cpp(46,63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\main.cpp(46,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\main.cpp(50,51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\main.cpp(50,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\main.cpp(54,51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\main.cpp(54,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\main.cpp(58,51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\main.cpp(58,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\main.cpp(62,51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\main.cpp(62,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\main.cpp(66,51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\main.cpp(66,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Project1.vcxproj -> D:\hoc\làm game\Project\x64\Debug\Project1.exe

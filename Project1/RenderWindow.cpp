@@ -1,7 +1,6 @@
-﻿#include"commonFuncion.h"
-
+﻿
 #include "RenderWindow.h"
-#include "Entity.h"
+
 
 RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h)
 	:window(NULL), renderer(NULL)
@@ -60,6 +59,11 @@ void RenderWindow::render(Entity& p_entity)
 	dst.h = p_entity.getH();
 
 	SDL_RenderCopy(renderer, p_entity.getTex(), &src, &dst);
+}
+
+void RenderWindow::render(SDL_Texture* tex, SDL_Rect src, SDL_Rect dst) {
+
+	SDL_RenderCopy(renderer,tex, &src, &dst);
 }
 
 void RenderWindow::display()

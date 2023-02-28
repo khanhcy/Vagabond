@@ -1,5 +1,4 @@
 ﻿#include"Entity.h"
-#include"commonFuncion.h"
 
 Entity::Entity(float p_x, float p_y,int p_w,int p_h, SDL_Texture* p_tex) {
 	x = p_x;
@@ -19,6 +18,18 @@ Entity::Entity(SDL_Rect p_rect, SDL_Texture* p_tex) {
 	w = p_rect.w;
 	h = p_rect.h;
 	tex = p_tex;
+	SDL_QueryTexture(p_tex, NULL, NULL, &currentFrame.w, &currentFrame.h);
+	currentFrame.x = 0;
+	currentFrame.y = 0;
+}
+
+Entity::Entity(SDL_Texture* p_tex) {
+	x = 0;
+	y = 0;
+	w = 0;
+	h = 0;
+	tex = p_tex;
+	// đây là hàm lấy thuộc tính của p_tex
 	SDL_QueryTexture(p_tex, NULL, NULL, &currentFrame.w, &currentFrame.h);
 	currentFrame.x = 0;
 	currentFrame.y = 0;

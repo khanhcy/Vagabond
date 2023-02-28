@@ -11,6 +11,7 @@ public:
 	void cleanUp();
 	void clear();
 	void render(Entity& p_entity);
+	void render(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest);
 	void display();
 	SDL_Renderer* getRenderer()const;
 		

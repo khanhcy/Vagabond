@@ -1,10 +1,10 @@
 #pragma once
 #include"commonFuncion.h"
 
-
 class Entity
 {
 public:
+
 	Entity(float p_x, float p_y,int p_w, int p_h, SDL_Texture* p_tex);
 	Entity(SDL_Rect p_rect, SDL_Texture* p_tex);
 	Entity(SDL_Texture* p_tex);
@@ -20,7 +20,7 @@ public:
 	float getY();
 	int getW();
 	int getH();
-private:
+protected:
 	float x, y;
 	int w, h;
 	SDL_Rect currentFrame;

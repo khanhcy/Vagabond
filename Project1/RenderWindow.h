@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include"commonFuncion.h"
-
 #include"Entity.h"
 
 class RenderWindow
@@ -14,7 +13,7 @@ public:
 	void render(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest);
 	void display();
 	SDL_Renderer* getRenderer()const;
-		
+	SDL_Window* getWindow();
 private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;

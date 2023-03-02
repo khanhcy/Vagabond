@@ -30,12 +30,18 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Charator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="commonFuncion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Charator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

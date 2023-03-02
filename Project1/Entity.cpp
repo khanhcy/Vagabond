@@ -1,5 +1,5 @@
 ﻿#include"Entity.h"
-
+#include"commonFuncion.h"
 Entity::Entity(float p_x, float p_y,int p_w,int p_h, SDL_Texture* p_tex) {
 	x = p_x;
 	y = p_y;

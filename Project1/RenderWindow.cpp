@@ -2,8 +2,8 @@
 #include "RenderWindow.h"
 
 
-RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h)
-	:window(NULL), renderer(NULL)
+void commonFuc::RenderWindow(const char* p_title, int p_w, int p_h)
+
 {
 	window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, p_w, p_h, SDL_WINDOW_SHOWN);
 
@@ -16,7 +16,7 @@ RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h)
 
 }
 
-SDL_Texture* RenderWindow::loadTexture(const char* p_filePath)
+SDL_Texture* commonFuc::loadTexture(const char* p_filePath)
 {
 	SDL_Texture* texture = NULL;
 	SDL_Surface* loadedSurface = IMG_Load(p_filePath);
@@ -36,17 +36,17 @@ SDL_Texture* RenderWindow::loadTexture(const char* p_filePath)
 	return texture;
 }
 
-void RenderWindow::cleanUp()
+void commonFuc::cleanUp()
 {
 	SDL_DestroyWindow(window);
 }
 
-void RenderWindow::clear()
+void commonFuc::clear()
 {
 	SDL_RenderClear(renderer);
 }
 
-void RenderWindow::render(Entity& p_entity)
+void commonFuc::render(Entity& p_entity)
 {	
 	SDL_Rect src;
 	src.x = p_entity.getCurrentFrame().x;
@@ -62,20 +62,20 @@ void RenderWindow::render(Entity& p_entity)
 	SDL_RenderCopy(renderer, p_entity.getTex(), &src, &dst);
 }
 
-void RenderWindow::render(SDL_Texture* tex, SDL_Rect src, SDL_Rect dst) {
+void commonFuc::render(SDL_Texture* tex, SDL_Rect src, SDL_Rect dst) {
 
 	SDL_RenderCopy(renderer,tex, &src, &dst);
 }
 
-void RenderWindow::display()
+void commonFuc::display()
 {
 	SDL_RenderPresent(renderer);
 }
 
-SDL_Renderer* RenderWindow::getRenderer()const {
-	return renderer;
-}
-
-SDL_Window* RenderWindow::getWindow() {
-	return window;
+SDL_Rect commonFuc::getTileSet(int id) {
+	int x = 0; int y = 0;
+	y = id / 15;
+	x = id - y * 15;
+	SDL_Rect scr = { x * 16,y * 16 ,16,16 };
+	return scr;
 }

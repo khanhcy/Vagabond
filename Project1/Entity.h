@@ -5,6 +5,7 @@ class Entity
 {
 public:
 
+	Entity();
 	Entity(float p_x, float p_y,int p_w, int p_h, SDL_Texture* p_tex);
 	Entity(SDL_Rect p_rect, SDL_Texture* p_tex);
 	Entity(SDL_Texture* p_tex);

@@ -1,5 +1,15 @@
 ﻿#include"Entity.h"
 #include"commonFuncion.h"
+
+Entity::Entity() {
+	x = 0;
+	y = 0;
+	w = 0;
+	h = 0;
+	tex = NULL;
+	currentFrame = { 0,0,0,0 };
+}
+
 Entity::Entity(float p_x, float p_y,int p_w,int p_h, SDL_Texture* p_tex) {
 	x = p_x;
 	y = p_y;

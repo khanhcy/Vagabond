@@ -1,14 +1,28 @@
-﻿  main.cpp
-D:\hoc\làm game\Project\Project1\main.cpp(31,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\main.cpp(31,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\main.cpp(35,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\main.cpp(35,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\main.cpp(39,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\main.cpp(39,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\main.cpp(43,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\main.cpp(43,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\main.cpp(47,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\main.cpp(47,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\main.cpp(64,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\main.cpp(64,58): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  Entity.cpp
+D:\hoc\làm game\Project\Project1\commonFuncion.h(35,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+D:\hoc\làm game\Project\Project1\Entity.cpp(26,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\Entity.cpp(27,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\Entity.cpp(57,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\Entity.cpp(58,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\Entity.cpp(63,19): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Entity.cpp(64,19): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Entity.h
+D:\hoc\làm game\Project\Project1\commonFuncion.h(35,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+  Map.cpp
+D:\hoc\làm game\Project\Project1\commonFuncion.h(35,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+D:\hoc\làm game\Project\Project1\Map.h(30,2): warning C4091: 'typedef ': ignored on left of 'map' when no variable is declared
+D:\hoc\làm game\Project\Project1\Map.cpp(64,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\Map.cpp(64,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  RenderWindow.cpp
+D:\hoc\làm game\Project\Project1\commonFuncion.h(35,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+D:\hoc\làm game\Project\Project1\RenderWindow.cpp(57,23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\RenderWindow.cpp(58,23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  commonFuncion.cpp
+D:\hoc\làm game\Project\Project1\commonFuncion.h(35,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+  main.cpp
+D:\hoc\làm game\Project\Project1\commonFuncion.h(35,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+D:\hoc\làm game\Project\Project1\Map.h(30,2): warning C4091: 'typedef ': ignored on left of 'map' when no variable is declared
+D:\hoc\làm game\Project\Project1\main.cpp(16,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\main.cpp(16,58): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
   Project1.vcxproj -> D:\hoc\làm game\Project\x64\Debug\Project1.exe

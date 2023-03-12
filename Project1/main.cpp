@@ -2,26 +2,7 @@
 #include"Entity.h"
 #include"RenderWindow.h"
 #include"Map.h"
-
-void Charator(const char* path, int& frame) 
-{
-    const int WALKING_ANIMATION_FRAMES = 8;
-    Entity CharatorRun(commonFuc::loadTexture(path));
-    SDL_Rect SpriteClips[WALKING_ANIMATION_FRAMES];
-    for (int i = 0; i < WALKING_ANIMATION_FRAMES; i++) {
-        SpriteClips[i] = { i * 80, 0, 80, 80 };
-    }
-    SDL_Rect currentClip = SpriteClips[frame / 8];
-    CharatorRun.setCurrentFrame(currentClip);
-    CharatorRun.setEntity((SCREEN_WIDTH - currentClip.w) / 2, (SCREEN_HEIGHT - currentClip.h) / 2, 200, 200);
-    commonFuc::render(CharatorRun);
-    frame++;
-    if (frame / 8 >= WALKING_ANIMATION_FRAMES)
-    {
-        frame = 0;
-    }
-    commonFuc::display();
-}
+#include"Charater.h"
 
 int main(int argc, char* args[])
 {
@@ -36,24 +17,31 @@ int main(int argc, char* args[])
     Entity background(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, commonFuc::loadTexture("image/background/Background.png"));
 
     gameMap game_map;
-    game_map.loadMap("image/map/map1.csv", "image/map/DungeonTileSet.png");
+    game_map.loadMap("image/map/test1.csv", "image/map/DungeonTileSet.png");
     bool gameRunning = true;
 
+
+    Charater charaterr;
+    //charaterr.setClips();
+    charaterr.loadImage();
     SDL_Event event;
-    //int frame = 0;
 
     while (gameRunning)
     {
         while (SDL_PollEvent(&event))
         {
             if (event.type == SDL_QUIT)
+            {
                 gameRunning = false;
+            }
+            charaterr.HandleInputAction(event);
         }
     	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         commonFuc::clear();
         commonFuc::render(background);
-             game_map.drawMap();
-        //Charator("image/Character/Run/Run-Sheet.png", frame);
+        game_map.drawMap();
+        charaterr.doPlayer();
+        charaterr.show();
         commonFuc::display();
     }
     commonFuc::cleanUp();

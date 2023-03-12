@@ -30,7 +30,7 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Charator.cpp">
+    <ClCompile Include="Charater.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
@@ -47,7 +47,7 @@
     <ClInclude Include="commonFuncion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Charator.h">
+    <ClInclude Include="Charater.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">

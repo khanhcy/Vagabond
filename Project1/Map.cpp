@@ -9,7 +9,7 @@
 void gameMap::loadMap(const char* name, const char* path)
 {
 	std::ifstream file(name);
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < MAX_MAP_Y; i++) {
 		std::string s;
 		file >> s;
 		std::stringstream ss(s);

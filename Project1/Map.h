@@ -8,7 +8,7 @@ const int TILE_SIZE = 32;
 
 const int MAX_MAP_X = 40;
 
-const int MAX_MAP_Y = 10;
+const int MAX_MAP_Y = 30;
 
 //const int Max_tileSet = 2;
 
@@ -26,7 +26,7 @@ typedef struct map {
     // mảng chứa map
     int tile[MAX_MAP_Y][MAX_MAP_X];
 
-    const char* fileName;
+    std::string fileName;
 };
 
 
@@ -42,5 +42,5 @@ public:
 private:
     map gamemap;
     //số lượng tileset
-    std::vector<Entity>  tileSet;
+    std::vector<Entity> tileSet;
 };

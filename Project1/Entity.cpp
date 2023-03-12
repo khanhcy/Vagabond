@@ -1,5 +1,5 @@
 ﻿#include"Entity.h"
-#include"commonFuncion.h"
+//#include"commonFuncion.h"
 
 Entity::Entity() {
 	x = 0;

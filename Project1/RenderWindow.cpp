@@ -62,9 +62,30 @@ void commonFuc::render(Entity& p_entity)
 	SDL_RenderCopy(renderer, p_entity.getTex(), &src, &dst);
 }
 
-void commonFuc::render(SDL_Texture* tex, SDL_Rect src, SDL_Rect dst) {
+//void commonFuc::render(Charator& p_charator)
+//{
+//	SDL_Rect src;
+//	src.x = p_charator.getCurrentFrame().x;
+//	src.y = p_charator.getCurrentFrame().y;
+//	src.w = p_charator.getCurrentFrame().w;
+//	src.h = p_charator.getCurrentFrame().h;
+//	SDL_Rect dst;
+//	dst.x = p_charator.getX();
+//	dst.y = p_charator.getY();
+//	dst.w = p_charator.getW();
+//	dst.h = p_charator.getH();
+//
+//	SDL_RenderCopy(renderer, p_charator.getTex(), &src, &dst);
+//}
 
-	SDL_RenderCopy(renderer,tex, &src, &dst);
+void commonFuc::render(SDL_Texture* tex, SDL_Rect *src, SDL_Rect dst, double angle, SDL_Point* center , SDL_RendererFlip flip) {
+
+	SDL_RenderCopyEx(renderer, tex, src, &dst, angle, center, flip);
+}
+
+void commonFuc::render(SDL_Texture* tex, SDL_Rect *src, SDL_Rect dst) {
+
+	SDL_RenderCopy(renderer,tex, src, &dst);
 }
 
 void commonFuc::display()

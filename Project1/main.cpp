@@ -4,20 +4,14 @@
 #include"Map.h"
 #include"Charater.h"
 
+
 int main(int argc, char* args[])
 {
-    if (SDL_Init(SDL_INIT_VIDEO) > 0)
-        std::cout << "HEY.. SDL_Init HAS FAILED. SDL_ERROR: " << SDL_GetError() << std::endl;
-
-    if (!(IMG_Init(IMG_INIT_PNG)))
-        std::cout << "IMG_init has failed. Error: " << SDL_GetError() << std::endl;
-
     commonFuc::RenderWindow("GAME", SCREEN_WIDTH, SCREEN_HEIGHT);
 
     Entity background(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, commonFuc::loadTexture("image/background/Background.png"));
-
     gameMap game_map;
-    game_map.loadMap("image/map/test1.csv", "image/map/DungeonTileSet.png");
+    game_map.loadMap("image/map/test4.csv", "image/map/DungeonTileSet.png");
     bool gameRunning = true;
 
 
@@ -36,12 +30,14 @@ int main(int argc, char* args[])
             }
             charaterr.HandleInputAction(event);
         }
-    	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    	//SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         commonFuc::clear();
         commonFuc::render(background);
-        game_map.drawMap();
-        charaterr.doPlayer();
+        charaterr.setMapXY(game_map.getMap().startX, game_map.getMap().startY);
+        charaterr.doPlayer(game_map);
         charaterr.show();
+        game_map.drawMap();
+
         commonFuc::display();
     }
     commonFuc::cleanUp();

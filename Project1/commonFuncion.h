@@ -13,7 +13,7 @@ static SDL_Window* window = NULL;
 static SDL_Renderer* renderer = NULL;
 static SDL_Surface* surface = NULL;
 
-const int SCREEN_WIDTH = 640;
+const int SCREEN_WIDTH = 680;
 const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP = 32;
 

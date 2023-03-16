@@ -1,5 +1,5 @@
 ﻿#include"Map.h"
-#include"commonFuncion.h"
+//#include"commonFuncion.h"
 
 
 //gameMap::gameMap()
@@ -19,12 +19,20 @@ void gameMap::loadMap(const char* name, const char* path)
 			int x = stoi(c);
 			gamemap.tile[i][j] = x;
 			j++;
+			if (x >= 0) {
+				if (j > gamemap.maxX) {
+					gamemap.maxX = j;
+				}
+				if (i > gamemap.maxY) {
+					gamemap.maxY = i;
+				}
+			}
 		}
 	}
 	
 	gamemap.maxX = (gamemap.maxX + 1) * TILE_SIZE;
 	gamemap.maxY = (gamemap.maxY + 1) * TILE_SIZE;
-
+	
 	gamemap.startX = 0;
 	gamemap.startY = 0;
 
@@ -36,6 +44,7 @@ void gameMap::loadMap(const char* name, const char* path)
 }
 
 
+
 void gameMap::drawMap() {
 	//vị trí bắt đầu tilemap
 	int x1 = 0;
@@ -45,37 +54,44 @@ void gameMap::drawMap() {
 	int y2 = 0;
 
 	//vị trí theo tọa độ chỗ tilemap
-	//int mapX = 0;
-	//int mapY = 0;
+	int mapX = 0;
+	int mapY = 0;
 
-	x1 = (gamemap.startX / TILE_SIZE) * TILE_SIZE;
-	x2 = x1 + SCREEN_HEIGHT;
-	if (gamemap.startX != x1) { x2 += TILE_SIZE; };
+	// tính toán vị trí bắt đầu và kết thúc của tilemap dựa trên vị trí của nhân vật
+	int startX = gamemap.startX / TILE_SIZE;
+	int startY = gamemap.startY / TILE_SIZE;
+	int endX = (gamemap.startX + SCREEN_WIDTH) / TILE_SIZE;
+	int endY = (gamemap.startY + SCREEN_HEIGHT) / TILE_SIZE;
 
-	y1 = (gamemap.startY / TILE_SIZE) * TILE_SIZE;
-	y2 = (y1 + SCREEN_WIDTH);
-	if (gamemap.startY != y1) { y2 += TILE_SIZE; };
+	// giới hạn vị trí bắt đầu và kết thúc tilemap trong phạm vi của map
+	if (startX < 0) {
+		startX = 0;
+	}
+	if (startY < 0) {
+		startY = 0;
+	}
+	if (endX > gamemap.maxX) {
+		endX = gamemap.maxX;
+	}
+	if (endY > gamemap.maxY) {
+		endY = gamemap.maxY;
+	}
 
-	for (int i = x1; i < x2; i += TILE_SIZE) {
-		for (int j = y1; j < y2; j += TILE_SIZE) {
-			int val = gamemap.tile[i / TILE_SIZE][j / TILE_SIZE];
-			if (val >= 0) {
-				tileSet[0].setCurrentFrame(commonFuc::getTileSet(val));
-				tileSet[0].setEntity(j, i, TILE_SIZE, TILE_SIZE);
+	// vẽ từng tile trong phạm vi của tilemap
+	for (int i = startY; i < endY; i++) {
+		for (int j = startX; j < endX; j++) {
+			// lấy thông tin của tile từ mảng gamemap.tile
+			int tileType = gamemap.tile[i][j];
+			// nếu tileType không phải là 0 (tức là không phải là ô trống), vẽ tile đó lên màn hình
+			if (tileType >= 0) {
+				// tính toán vị trí của tile trên màn hình
+				int x = (j * TILE_SIZE) - gamemap.startX;
+				int y = (i * TILE_SIZE) - gamemap.startY;
+				// lấy texture của tile từ tileSet và vẽ lên màn hình
+				tileSet[0].setCurrentFrame(commonFuc::getTileSet(tileType));
+				tileSet[0].setEntity(x, y, TILE_SIZE, TILE_SIZE);
 				commonFuc::render(tileSet[0]);
 			}
 		}
 	}
-
-	/*for (int i = 0; i < 10; i++) {
-		for (int j = 0; j < 40; j++) {
-			int val = gamemap.tile[i][j];
-			if (val >= 0) {
-				tileSet[0].setCurrentFrame(commonFuc::getTileSet(val));
-				tileSet[0].setEntity(j * 64, i * 64, 64, 64);
-				commonFuc::render(tileSet[0]);
-			}
-		}
-	}*/
-
 }

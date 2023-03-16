@@ -37,8 +37,11 @@ public:
 
     void loadMap(const char* name, const char* path);
     void drawMap();
-
-
+    map getMap(){
+        return gamemap;
+    }
+    void getStartX(const int startX_) { gamemap.startX = startX_; };
+    void getStartY(const int startY_) { gamemap.startY = startY_; };
 private:
     map gamemap;
     //số lượng tileset

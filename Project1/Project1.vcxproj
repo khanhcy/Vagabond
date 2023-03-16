@@ -140,6 +140,7 @@
     <ClCompile Include="RenderWindow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Entity.h" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="commonFuncion.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="RenderWindow.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

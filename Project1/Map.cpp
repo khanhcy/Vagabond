@@ -30,8 +30,8 @@ void gameMap::loadMap(const char* name, const char* path)
 		}
 	}
 	
-	gamemap.maxX = (gamemap.maxX + 1) * TILE_SIZE;
-	gamemap.maxY = (gamemap.maxY + 1) * TILE_SIZE;
+	gamemap.maxX = gamemap.maxX * TILE_SIZE;
+	gamemap.maxY = gamemap.maxY * TILE_SIZE;
 	
 	gamemap.startX = 0;
 	gamemap.startY = 0;

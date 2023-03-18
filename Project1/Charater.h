@@ -7,6 +7,7 @@
 const int RunAnimationFrame = 8;
 const int idleAnimationFrame = 2;
 const int runEndAnimationFrame = 4;
+const int jumpAnimationFrame = 3;
 
 
 // trọng lực rơi
@@ -15,7 +16,7 @@ static float gravity_speed = 2;
 // tốc độ rơi tối đa
 const float maxGravity_speed = 5;
 
-const float player_speed = 10;
+const float player_speed = 7;
 
 
 const int item_key = 146;
@@ -67,7 +68,8 @@ private:
 
 	bool on_ground;
 
-	int frameRunEnd = 0;
+	int frameRunEnd;
+	int frameJump;
 
 	std::vector<Entity> RunAnimationRight;
 	std::vector<Entity> RunAnimationLeft;
@@ -75,6 +77,8 @@ private:
 	std::vector<Entity> idleAnimationLeft;
 	std::vector<Entity> runEndAnimationLeft;
 	std::vector<Entity> runEndAnimationRight;
+	std::vector<Entity> jumpAnimaitionLeft;
+	std::vector<Entity> jumpAnimationRight;
 
 	Input inputType;
 

@@ -3,7 +3,7 @@
 
 
 
-const int FPS = 25;
+const int FPS = 30;
 const int frameDelay = 1000 / FPS;
 
 

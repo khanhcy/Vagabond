@@ -1,22 +1,22 @@
 ﻿  Charater.cpp
 D:\hoc\làm game\Project\Project1\commonFuncion.h(30,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
 D:\hoc\làm game\Project\Project1\Map.h(30,2): warning C4091: 'typedef ': ignored on left of 'map' when no variable is declared
-D:\hoc\làm game\Project\Project1\Charater.cpp(69,26): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-D:\hoc\làm game\Project\Project1\Charater.cpp(69,26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(69,41): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-D:\hoc\làm game\Project\Project1\Charater.cpp(69,41): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(204,23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(205,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(206,19): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(207,31): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(211,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(217,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(224,13): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(225,26): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(226,23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(227,42): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(231,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(238,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(253,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.cpp(262,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(82,26): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+D:\hoc\làm game\Project\Project1\Charater.cpp(82,26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(82,41): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+D:\hoc\làm game\Project\Project1\Charater.cpp(82,41): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(229,23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(230,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(231,19): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(232,31): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(236,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(242,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(249,13): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(250,26): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(251,23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(252,42): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(256,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(263,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(278,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.cpp(287,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   Project1.vcxproj -> D:\hoc\làm game\Project\x64\Debug\Project1.exe

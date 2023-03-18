@@ -18,6 +18,8 @@ Charater::Charater()
 	on_ground = false;
 	map_x = 0;
 	map_y = 0;
+	frameJump = 0;
+	frameRunEnd = 0;
 };
 
 
@@ -25,49 +27,60 @@ void Charater::loadImage() {
 	SDL_Rect R = { 42,83,45,45 };
 	for (int i = 0; i < RunAnimationFrame; i++) {
 		std::string s = "image/vagabond/run/vagabond-run" + std::to_string(i + 1) + ".png";
-		Entity E(64,128,64,64,commonFuc::loadTexture(s.c_str()));
+		Entity E(0,0,128,128,commonFuc::loadTexture(s.c_str()));
 		E.setCurrentFrame(R);
 		RunAnimationRight.push_back(E);
 	}
 	for (int i = 0; i < RunAnimationFrame; i++) {
 		std::string s = "image/vagabond/run/vagabond-run-left" + std::to_string(i + 1) + ".png";
-		Entity E(64, 128, 64, 64, commonFuc::loadTexture(s.c_str()));
+		Entity E(0, 0, 128, 128, commonFuc::loadTexture(s.c_str()));
 		E.setCurrentFrame(R);
 		RunAnimationLeft.push_back(E);
 	}
 
 	for (int i = 0; i < idleAnimationFrame; i++) {
 		std::string s = "image/vagabond/idle/vagabond-idle" + std::to_string(i + 1) + ".png";
-		Entity E(64, 128, 64, 64, commonFuc::loadTexture(s.c_str()));
+		Entity E(0, 0, 128, 128, commonFuc::loadTexture(s.c_str()));
 		E.setCurrentFrame(R);
 		idleAnimationRight.push_back(E);
 	}
 
 	for (int i = 0; i < idleAnimationFrame; i++) {
 		std::string s = "image/vagabond/idle/vagabond-idle-left" + std::to_string(i + 1) + ".png";
-		Entity E(64, 128, 64, 64, commonFuc::loadTexture(s.c_str()));
+		Entity E(0, 0, 128, 128, commonFuc::loadTexture(s.c_str()));
 		E.setCurrentFrame(R);
 		idleAnimationLeft.push_back(E);
 	}
 	for (int i = 0; i < runEndAnimationFrame; i++) {
 		std::string s = "image/vagabond/run-end/vagabond-run-end" + std::to_string(i + 1) + ".png";
-		Entity E(64, 128, 64, 64, commonFuc::loadTexture(s.c_str()));
+		Entity E(0, 0, 128, 128, commonFuc::loadTexture(s.c_str()));
 		E.setCurrentFrame(R);
 		runEndAnimationRight.push_back(E);
 	}
 	for (int i = 0; i < runEndAnimationFrame; i++) {
 		std::string s = "image/vagabond/run-end/vagabond-run-end-left" + std::to_string(i + 1) + ".png";
-		Entity E(64, 128, 64, 64, commonFuc::loadTexture(s.c_str()));
+		Entity E(0, 0, 128, 128, commonFuc::loadTexture(s.c_str()));
 		E.setCurrentFrame(R);
 		runEndAnimationLeft.push_back(E);
+	}
+	for (int i = 0; i < jumpAnimationFrame; i++) {
+		std::string s = "image/vagabond/jump/vagabond-jump" + std::to_string(i + 1) + ".png";
+		Entity E(0, 0, 128, 128, commonFuc::loadTexture(s.c_str()));
+		E.setCurrentFrame(R);
+		jumpAnimationRight.push_back(E);
+	}
+	for (int i = 0; i < jumpAnimationFrame; i++) {
+		std::string s = "image/vagabond/jump/vagabond-jump-left" + std::to_string(i + 1) + ".png";
+		Entity E(0, 0, 128, 128, commonFuc::loadTexture(s.c_str()));
+		E.setCurrentFrame(R);
+		jumpAnimaitionLeft.push_back(E);
 	}
 };
 
 
 void Charater::show() {
-	//std::cout << x_pos << " " << y_pos << std::endl;
 	SDL_Rect dest = { x_pos - map_x ,y_pos - map_y, width_frame, height_frame };
-	std::cout << x_pos - map_x << " " << y_pos - map_y << std::endl;
+	//std::cout << x_pos - map_x << " " << y_pos - map_y << std::endl;
 	for (int i = 0; i < RunAnimationFrame; i++) {
 		RunAnimationRight[i].setEntity(dest);
 		RunAnimationLeft[i].setEntity(dest);
@@ -82,8 +95,24 @@ void Charater::show() {
 		runEndAnimationRight[i].setEntity(dest);
 
 	}
-	if (status == 1 ) {
-		if (inputType.left == 1 && on_ground == true) {
+
+	for (int i = 0; i < frameJump; i++) {
+		jumpAnimaitionLeft[i].setEntity(dest);
+		jumpAnimaitionLeft[i].setEntity(dest);
+
+	}
+
+	for (int i = 0; i < frameJump; i++) {
+		jumpAnimationRight[i].setEntity(dest);
+		jumpAnimationRight[i].setEntity(dest);
+	}
+
+
+	if (status == 1) {
+		//if (on_ground == true) {
+
+		//}
+		if (inputType.left == 1) {
 			commonFuc::render(RunAnimationLeft[frame % 8]);
 			runing = true;
 			frameRunEnd = 0;
@@ -95,11 +124,12 @@ void Charater::show() {
 				}
 				commonFuc::render(runEndAnimationLeft[frameRunEnd]);
 				frameRunEnd++;
-			}else
-			commonFuc::render(idleAnimationLeft[frame % 2]);
+			}
+			else
+				commonFuc::render(idleAnimationLeft[frame % 2]);
 		}
 	}
-	else if(status == 0 ){
+	else if (status == 0) {
 		if (inputType.right == 1 && on_ground == true) {
 			commonFuc::render(RunAnimationRight[frame % 8]);
 			runing = true;
@@ -112,8 +142,9 @@ void Charater::show() {
 				}
 				commonFuc::render(runEndAnimationRight[frameRunEnd]);
 				frameRunEnd++;
-			}else
-			commonFuc::render(idleAnimationRight[frame % 2]);
+			}
+			else
+				commonFuc::render(idleAnimationRight[frame % 2]);
 		}
 	}
 	frame++;
@@ -137,11 +168,7 @@ void Charater::HandleInputAction(SDL_Event e) {
 			break;
 		case SDLK_SPACE:
 			on_ground = false;
-			inputType.up = 1;
-			break;
-		case SDLK_DOWN:
-			inputType.down = 1;
-
+			inputType.jump = 1;
 			break;
 		default:
 			break;
@@ -157,11 +184,9 @@ void Charater::HandleInputAction(SDL_Event e) {
 			inputType.left = 0;
 			break;
 		case SDLK_SPACE:            
-			inputType.up = 0;
+			inputType.jump = 0;
 			break;
-		case SDLK_DOWN:            
-			inputType.down = 0;
-			break;
+
 		default:
 			break;
 		}
@@ -180,9 +205,11 @@ void Charater::doPlayer(gameMap& game_map) {
 	else if (inputType.left == 1) {
 		x_val -= player_speed;
 	}
-	if (inputType.up == 1) {
-		y_val = -(player_speed + maxGravity_speed);
-		//std::cout << maxGravity_speed << std::endl;
+	if (inputType.jump == 1) {
+		if (on_ground == true) {
+			y_val = -20;
+		}
+		on_ground = false;
 	}
 	else if(inputType.down == 1) {
 		y_val += player_speed;
@@ -192,6 +219,8 @@ void Charater::doPlayer(gameMap& game_map) {
 }
 
 void Charater::checkToMap(gameMap& game_map) {
+
+
 	int x1 = 0;
 	int y1 = 0;
 	int x2 = 0;
@@ -266,8 +295,8 @@ void Charater::centerEntityOnMap(gameMap& game_map) {
 	}
 	else if (startY_ + SCREEN_HEIGHT >= game_map.getMap().maxY) {
 		game_map.getStartY(game_map.getMap().maxY - SCREEN_HEIGHT);
+
 	}
-	//std::cout << game_map.getMap().maxX << " " << game_map.getMap().maxY << std::endl;
 
 }
 

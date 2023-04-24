@@ -137,6 +137,7 @@
     <ClCompile Include="commonFuncion.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="RenderWindow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Entity.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Charater.h" />
     <ClInclude Include="commonFuncion.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="RenderWindow.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>

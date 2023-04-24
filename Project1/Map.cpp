@@ -1,11 +1,5 @@
 ﻿#include"Map.h"
-//#include"commonFuncion.h"
 
-
-//gameMap::gameMap()
-//{
-//
-//}
 void gameMap::loadMap(const char* name, const char* path)
 {
 	std::ifstream file(name);
@@ -30,8 +24,8 @@ void gameMap::loadMap(const char* name, const char* path)
 		}
 	}
 	
-	gamemap.maxX = gamemap.maxX * TILE_SIZE;
-	gamemap.maxY = gamemap.maxY * TILE_SIZE;
+	gamemap.maxX = gamemap.maxX * (TILE_SIZE );
+	gamemap.maxY = gamemap.maxY * (TILE_SIZE );
 	
 	gamemap.startX = 0;
 	gamemap.startY = 0;
@@ -78,8 +72,8 @@ void gameMap::drawMap() {
 	}
 
 	// vẽ từng tile trong phạm vi của tilemap
-	for (int i = startY; i < endY; i++) {
-		for (int j = startX; j < endX; j++) {
+	for (int i = startY; i <= endY; i++) {
+		for (int j = startX; j <= endX; j++) {
 			// lấy thông tin của tile từ mảng gamemap.tile
 			int tileType = gamemap.tile[i][j];
 			// nếu tileType không phải là 0 (tức là không phải là ô trống), vẽ tile đó lên màn hình

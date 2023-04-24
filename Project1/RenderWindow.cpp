@@ -100,3 +100,24 @@ SDL_Rect commonFuc::getTileSet(int id) {
 	SDL_Rect scr = { x * 16,y * 16 ,16,16 };
 	return scr;
 }
+
+
+bool commonFuc::check_wall(int n) {
+	for (int i = 0; i < sizeof Map_wall; i++) {
+		if (n == Map_wall[i]) {
+			return true;
+		}
+	}
+	return false;
+}
+
+
+
+bool commonFuc::check_thorn(int n) {
+	for (int i = 0; i < sizeof(Map_thorn); i++) {
+		if (n == Map_thorn[i]) {
+			return true;
+		}
+	}
+	return false;
+}

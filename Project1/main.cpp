@@ -4,22 +4,47 @@
 #include"Map.h"
 #include"Charater.h"
 #include"Timer.h"
+#include"Monster.h"
+
+std::vector<Monster*> make_threat_list()
+{
+    std::vector<Monster*> list_threat;
+    for (int i = 0; i < 3; i++)
+    {
+        Monster* p_object = new Monster[3];
+        p_object->loadImage();
+        p_object->SetClips();
+        p_object->setX_Pos(100 + 450 * i);
+        p_object->setY_Pos(100);
+        p_object->SetAnimationPos(p_object->getX_Pos() - 60, p_object->getX_Pos() + 60);
+        list_threat.push_back(p_object);
+
+    }
+    return list_threat;
+}
+
 
 
 int main(int argc, char* args[])
 {
     Timer Fps_Time;
-    commonFuc::RenderWindow("GAME", SCREEN_WIDTH, SCREEN_HEIGHT);
+    commonFuc::RenderWindow("Vagabond", SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    Entity background(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, commonFuc::loadTexture("image/background/Background.png"));
+    Entity background(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, commonFuc::loadTexture("image/background/0.png"));
+
     gameMap game_map;
-    game_map.loadMap("image/map/test4.csv", "image/map/DungeonTileSet.png");
+    game_map.loadMap("image/map/map6.csv", "image/map/DungeonTileSet.png");
     bool gameRunning = true;
 
 
     Charater charaterr;
-    //charaterr.setClips();
+
+    Monster monster;
     charaterr.loadImage();
+
+    std::vector<Monster*> Monster_list = make_threat_list();
+
+
     SDL_Event event;
 
     while (gameRunning)
@@ -40,6 +65,13 @@ int main(int argc, char* args[])
         charaterr.doPlayer(game_map);
         charaterr.show();
         game_map.drawMap();
+        for (int i = 0; i < 3; i++) {
+            Monster* p_monster = Monster_list.at(i);
+            p_monster->setMapXY(game_map.getMap().startX, game_map.getMap().startY);
+            p_monster->doPlayer(game_map);
+            p_monster->show();
+        }
+
         commonFuc::display();
 
         int real_Time = Fps_Time.GetTicks();

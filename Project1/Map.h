@@ -10,7 +10,6 @@ const int MAX_MAP_X = 40;
 
 const int MAX_MAP_Y = 30;
 
-//const int Max_tileSet = 2;
 
 typedef struct map {
 
@@ -42,8 +41,11 @@ public:
     }
     void getStartX(const int startX_) { gamemap.startX = startX_; };
     void getStartY(const int startY_) { gamemap.startY = startY_; };
+    void setMap(int x, int y, int z) { gamemap.tile[x][y] = z; }
+
 private:
     map gamemap;
     //số lượng tileset
     std::vector<Entity> tileSet;
+    
 };

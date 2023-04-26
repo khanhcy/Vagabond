@@ -144,6 +144,7 @@ void Charater::loadImage() {
 
 void Charater::show() {
 	SDL_Rect dest = { x_pos - map_x ,y_pos - map_y, width_frame, height_frame };
+	//std::cout << x_pos << " " << y_pos << std::endl;
 	for (int i = 0; i < RunAnimationFrame; i++) {
 		RunAnimationRight[i].setEntity(dest);
 		RunAnimationLeft[i].setEntity(dest);
@@ -348,7 +349,7 @@ void Charater::animationAttack() {
 			inputType.idle = 0;
 			commonFuc::render(attackAnimationLeft[frameAttack / 10]);
 			frameAttack++;
-			if (frameAttack / 10 >= 4) {
+			if (frameAttack / 10 >= 3) {
 				frameAttack = 0;
 				inputType.attack = 0;
 			}
@@ -362,7 +363,7 @@ void Charater::animationAttack() {
 			inputType.idle = 0;
 			commonFuc::render(attackAnimationRight[frameAttack / 10]);
 			frameAttack++;
-			if (frameAttack / 10 >= 4) {
+			if (frameAttack / 10 >= 3) {
 				frameAttack = 0;
 				inputType.attack = 0;
 			}

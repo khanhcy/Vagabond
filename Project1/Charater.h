@@ -10,7 +10,7 @@ const int runEndAnimationFrame = 4;
 const int jumpAnimationFrame = 3;
 const int dashAnimationFrame = 4;
 const int deadAnimationFrame = 7;
-const int attackAnimationFrame = 4;
+const int attackAnimationFrame = 3;
 
 
 // trọng lực rơi
@@ -55,6 +55,22 @@ public:
 	void animationDash();
 	void animationDead();
 	void animationAttack();
+
+	SDL_Rect getCharater() {
+		SDL_Rect res = { x_pos, y_pos, 140, height_frame };
+		if (inputType.attack == 1 && run_left == status) {
+			res.x -= 89;
+		}
+		return res;
+	}
+	bool attacking() {
+		if (inputType.attack == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 private:
 	float x_val;
 	float y_val;

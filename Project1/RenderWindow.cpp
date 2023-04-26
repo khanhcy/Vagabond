@@ -60,6 +60,8 @@ void commonFuc::render(Entity& p_entity)
 	dst.h = p_entity.getH();
 
 	SDL_RenderCopy(renderer, p_entity.getTex(), &src, &dst);
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_RenderDrawRect(renderer, &dst);
 }
 
 //void commonFuc::render(Charator& p_charator)
@@ -85,7 +87,9 @@ void commonFuc::render(SDL_Texture* tex, SDL_Rect *src, SDL_Rect dst, double ang
 
 void commonFuc::render(SDL_Texture* tex, SDL_Rect *src, SDL_Rect dst) {
 
-	SDL_RenderCopy(renderer,tex, src, &dst);
+    SDL_SetRenderDrawColor(renderer, 200, 0, 0, 255);
+    SDL_RenderDrawRect(renderer, src);
+    SDL_RenderCopy(renderer, tex, src, &dst);
 }
 
 void commonFuc::display()
@@ -121,3 +125,21 @@ bool commonFuc::check_thorn(int n) {
 	}
 	return false;
 }
+bool commonFuc::CheckCollision(const SDL_Rect& object1, const SDL_Rect& object2) {
+    // Kiểm tra va chạm giữa hai hình chữ nhật bằng cách kiểm tra xem chúng có chồng lên nhau không
+    if (object1.x + object1.w <= object2.x) {
+        return false;
+    }
+    if (object2.x + object2.w <= object1.x) {
+        return false;
+    }
+    if (object1.y + object1.h <= object2.y) {
+        return false;
+    }
+    if (object2.y + object2.h <= object1.y) {
+        return false;
+    }
+    return true;
+}
+
+

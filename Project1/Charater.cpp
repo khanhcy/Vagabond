@@ -609,4 +609,19 @@ void Charater::centerEntityOnMap(gameMap& game_map) {
 	}
 
 }
+bool Charater::attackMonster(SDL_Rect& Monster) {
 
+	if (inputType.attack == 1 && frameAttack == 5) {
+		SDL_Rect R_charater = { x_pos + width_frame, y_pos + 20, 140 - width_frame, height_frame - 20 };
+		if (status == run_left) {
+			R_charater.x -= 90;
+			R_charater.x -= width_frame * 2;
+			
+		}
+		if (commonFuc::CheckCollision(Monster, R_charater)) {
+			return true;
+		}
+			
+	}
+	return false;
+}

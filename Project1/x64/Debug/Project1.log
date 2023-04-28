@@ -1,28 +1,12 @@
-﻿  Monster.cpp
+﻿  main.cpp
 D:\hoc\làm game\Project\Project1\commonFuncion.h(33,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
 D:\hoc\làm game\Project\Project1\Map.h(29,2): warning C4091: 'typedef ': ignored on left of 'map' when no variable is declared
-D:\hoc\làm game\Project\Project1\Charater.h(60,20): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-D:\hoc\làm game\Project\Project1\Charater.h(60,20): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.h(60,27): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-D:\hoc\làm game\Project\Project1\Charater.h(60,27): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.h(63,20): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+D:\hoc\làm game\Project\Project1\Charater.h(63,20): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.h(63,27): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+D:\hoc\làm game\Project\Project1\Charater.h(63,27): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 D:\hoc\làm game\Project\Project1\RenderWindow.h(12,34): warning C4838: conversion from 'double' to 'const int' requires a narrowing conversion
 D:\hoc\làm game\Project\Project1\RenderWindow.h(12,34): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.h(56,26): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.h(57,26): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.cpp(165,26): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-D:\hoc\làm game\Project\Project1\Monster.cpp(165,26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.cpp(165,41): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-D:\hoc\làm game\Project\Project1\Monster.cpp(165,41): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.cpp(258,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.cpp(259,39): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.cpp(260,21): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.cpp(261,33): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.cpp(268,15): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.cpp(269,28): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.cpp(270,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.cpp(271,44): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.cpp(279,44): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.cpp(291,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.cpp(301,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\Monster.cpp(312,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\hoc\làm game\Project\Project1\Monster.h(60,26): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Monster.h(61,26): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
   Project1.vcxproj -> D:\hoc\làm game\Project\x64\Debug\Project1.exe

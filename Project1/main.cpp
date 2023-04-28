@@ -9,20 +9,31 @@
 
 std::vector<Monster*> make_Skeleton_list()
 {
-    std::vector<Monster*> list_threat;
+    std::vector<Monster*> list_skeleton;
     for (int i = 0; i < 1; i++)
     {
-        Monster* p_object = new Monster[1];
-        p_object->loadSkeletonImage();
-        p_object->SetClips();
-        p_object->setX_Pos(625);
-        p_object->setY_Pos(140);
-        p_object->SetAnimationPos(p_object->getX_Pos() - 70, p_object->getX_Pos() + 70);
-        list_threat.push_back(p_object);
+        Monster* skeleton = new Monster[1];
+        skeleton->loadSkeletonImage();
+        skeleton->SetClips();
+        skeleton->setX_Pos(625);
+        skeleton->setY_Pos(140);
+        skeleton->SetAnimationPos(skeleton->getX_Pos() - 100, skeleton->getX_Pos() + 100);
+        list_skeleton.push_back(skeleton);
     }
-    return list_threat;
+    return list_skeleton;
 }
 
+std::vector<Monster*> make_Bat_litst() {
+    std::vector<Monster*> list_Bat;
+    for (int i = 0; i < 1; i++) {
+        Monster* bat = new Monster[1];
+        bat->loadBatImage();
+        bat->setX_Pos(500);
+        bat->setY_Pos(50);
+        list_Bat.push_back(bat);
+    }
+    return list_Bat;
+}
 
 
 int main(int argc, char* args[])
@@ -42,7 +53,8 @@ int main(int argc, char* args[])
     Monster monster;
     charaterr.loadImage();
 
-    std::vector<Monster*> Monster_list = make_Skeleton_list();
+    std::vector<Monster*> Skeleton_list = make_Skeleton_list();
+    std::vector<Monster*> Bat_list = make_Bat_litst();
 
     SDL_Event event;
 
@@ -66,18 +78,23 @@ int main(int argc, char* args[])
         game_map.drawMap();
 
 
-        for (int i = 0; i < Monster_list.size(); i++) {
-            Monster* p_monster = Monster_list.at(i);
-            p_monster->setMapXY(game_map.getMap().startX, game_map.getMap().startY);
-            p_monster->doPlayer(game_map);
-            p_monster->show();
-            SDL_Rect R_monster = { p_monster->getX_Pos(), p_monster->getY_Pos(), p_monster->get_WithFrame(), p_monster->get_HeighFrame()};
-            if (charaterr.attacking()) {
-                std::cout << "haha" << std::endl;
-                if (commonFuc::CheckCollision(R_monster, charaterr.getCharater())) {
-                    p_monster->alive = false;
-                }
-           }
+        for (int i = 0; i < Skeleton_list.size(); i++) {
+            Monster* skeleton = Skeleton_list.at(i);
+            skeleton->setMapXY(game_map.getMap().startX, game_map.getMap().startY);
+            skeleton->doPlayer(game_map);
+            skeleton->show();
+            skeleton->gravity();
+            SDL_Rect R_monster = { skeleton->getX_Pos(), skeleton->getY_Pos(), skeleton->get_WithFrame(), skeleton->get_HeighFrame()};
+            if(charaterr.attackMonster(R_monster)) {
+                skeleton->knockback = true;
+            }
+            skeleton->SkeletonMeetPlayer(charaterr.getCharater());
+        }
+        for (int i = 0; i < Bat_list.size(); i++) {
+            Monster* Bat = Bat_list.at(i);
+            Bat->setMapXY(game_map.getMap().startX, game_map.getMap().startY);
+            Bat->doPlayer(game_map);
+            Bat->show();
         }
 
         commonFuc::display();

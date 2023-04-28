@@ -32,5 +32,4 @@ namespace commonFuc
 	bool check_step(int n);
 	bool check_thorn(int n);
 	bool CheckCollision(const SDL_Rect& object1, const SDL_Rect& object2);
-	bool MeetPlayer(const)
 }

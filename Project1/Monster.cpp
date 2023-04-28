@@ -18,6 +18,8 @@ Monster::Monster()
 	can_moveL = false;
 	block = true;
 	alive = true;
+	inputType.attack = 0;
+	knockback = false;
 	
 };
 
@@ -79,7 +81,6 @@ void Monster::loadBatImage() {
 		BatFlyRight.push_back(E);
 	}
 	for (int i = animationBatFlyFrame - 1; i != -1; i--) {
-		std::cout << i << std::endl;
 		std::string s = "image/Monster/Bat/Bat-flying/Bat-fly-left (" + std::to_string(i + 1) + ").png";
 		Entity E(0, 0, 192, 192, commonFuc::loadTexture(s.c_str()));
 		E.setCurrentFrame(R);
@@ -125,14 +126,14 @@ void Monster::SetClips() {
 	}
 
 	for (int i = 0; i < animationSkeletonAttackFrame; i++) {
-		AnimationAttackRight[i].x = i * 22;
+		AnimationAttackRight[i].x = i * 43;
 		AnimationAttackRight[i].y = 0;
-		AnimationAttackRight[i].w = 22;
-		AnimationAttackRight[i].h = 33;
-		AnimationAttackLeft[animationSkeletonAttackFrame - i - 1].x = i * 22;
+		AnimationAttackRight[i].w = 43;
+		AnimationAttackRight[i].h = 37;
+		AnimationAttackLeft[animationSkeletonAttackFrame - i - 1].x = i * 43;
 		AnimationAttackLeft[animationSkeletonAttackFrame - i - 1].y = 0;
-		AnimationAttackLeft[animationSkeletonAttackFrame - i - 1].w = 22;
-		AnimationAttackLeft[animationSkeletonAttackFrame - i - 1].h = 33;
+		AnimationAttackLeft[animationSkeletonAttackFrame - i - 1].w = 43;
+		AnimationAttackLeft[animationSkeletonAttackFrame - i - 1].h = 37;
 	}
 
 	for (int i = 0; i < animationSkeletonDeadFrame; i++) {
@@ -147,16 +148,14 @@ void Monster::SetClips() {
 
 	}
 	for (int i = 0; i < animationSkeletonHitFrame; i++) {
-		AnimationHitRight[i].x = i * 22;
+		AnimationHitRight[i].x = i * 30;
 		AnimationHitRight[i].y = 0;
-		AnimationHitRight[i].w = 22;
-		AnimationHitRight[i].h = 33;
-	}
-	for (int i = animationSkeletonHitFrame - 1; i != -1; i--) {
-		AnimationHitLeft[i].x = i * 22;
-		AnimationHitLeft[i].y = 0;
-		AnimationHitLeft[i].w = 22;
-		AnimationHitLeft[i].h = 33;
+		AnimationHitRight[i].w = 30;
+		AnimationHitRight[i].h = 32;
+		AnimationHitLeft[animationSkeletonHitFrame - i - 1].x = i * 30;
+		AnimationHitLeft[animationSkeletonHitFrame - i - 1].y = 0;
+		AnimationHitLeft[animationSkeletonHitFrame - i - 1].w = 30;
+		AnimationHitLeft[animationSkeletonHitFrame - i - 1].h = 32;
 	}
 
 }
@@ -171,8 +170,28 @@ void Monster::show() {
 		SkeletonRight[SkeletonDeath].setEntity(dest);
 		SkeletonLeft[SkeletonDeath].setEntity(dest);
 	}
+	for (int i = 0; i < animationSkeletonHitFrame; i++) {
+		SkeletonRight[SkeletonHit].setEntity(dest);
+		SkeletonLeft[SkeletonHit].setEntity(dest);
+	}
+	for (int i = 0; i < animationSkeletonAttackFrame; i++) {
+		dest.w = 90;
+		SkeletonRight[SkeletonAttack].setEntity(dest);
+	}
+	dest.x -= 45;
+	for (int i = 0; i < animationSkeletonAttackFrame; i++) {
+		dest.w = 90;
+		SkeletonLeft[SkeletonAttack].setEntity(dest);
+	}
+	
 	animationSkeletonWalk();
 	animationSkeletonDead();
+	animationSkeletonAttack();
+	animationSkeletonHit();
+	if (healSkeleton >= 4) {
+		alive = false;
+		healSkeleton = 0;
+	}
 }
 
 
@@ -182,58 +201,96 @@ void Monster::animationSkeletonWalk() {
 		frame = 0;
 
 	}
-	if (inputType.right == 1 && alive == true) {
+	if (inputType.right == 1 && alive == true && inputType.attack == 0 && can_moveR == true && knockback == false) {
 		SkeletonRight[SkeletonWalk].setCurrentFrame(AnimationWalkRight[frame / 3]);
 		commonFuc::render(SkeletonRight[SkeletonWalk]);
 	}
-	else if (inputType.left == 1 && alive == true) {
+	else if (inputType.left == 1 && alive == true && inputType.attack == 0 && can_moveL == true && knockback == false) {
 		SkeletonLeft[SkeletonWalk].setCurrentFrame(AnimationWalkLeft[frame / 3]);
 		commonFuc::render(SkeletonLeft[SkeletonWalk]);
 	}
 	
 }
 void Monster::animationSkeletonAttack() {
+	if (can_moveR == true) {
+		if (inputType.attack == 1 && alive == true && knockback == false) {
+			SkeletonRight[SkeletonAttack].setCurrentFrame(AnimationAttackRight[frameAttack / 3]);
+			commonFuc::render(SkeletonRight[SkeletonAttack]);
+			frameAttack++;
+			if ((frameAttack / 3) >= animationSkeletonAttackFrame) {
+				frameAttack = 0;
+				inputType.attack = 0;
+			}
+		}
 
+	}
+	else if (can_moveL == true) {
+		if (inputType.attack == 1 && alive == true && knockback == false) {
+			SkeletonLeft[SkeletonAttack].setCurrentFrame(AnimationAttackLeft[frameAttack / 3]);
+			commonFuc::render(SkeletonLeft[SkeletonAttack]);
+			frameAttack++;
+			if ((frameAttack / 3)>= animationSkeletonAttackFrame) {
+				frameAttack = 0;
+				inputType.attack = 0;
+			}
+		}
+		
+	}
+	std::cout << healSkeleton << std::endl;
+	
 }
 
 void Monster::animationSkeletonHit() {
-
+	if ( knockback == true) {
+		if (can_moveR) {
+			SkeletonRight[SkeletonHit].setCurrentFrame(AnimationHitRight[frameHit / 5]);
+			commonFuc::render(SkeletonRight[SkeletonHit]);
+			frameHit++;
+		}else if (can_moveL) {
+			SkeletonLeft[SkeletonHit].setCurrentFrame(AnimationHitLeft[frameHit / 5]);
+			commonFuc::render(SkeletonLeft[SkeletonHit]);
+			frameHit++;
+			
+		}
+		if ((frameHit / 5) >= animationSkeletonHitFrame) {
+			frameHit = 0;
+			healSkeleton++;
+			knockback = false;
+		}
+	}
 }
 void Monster::animationSkeletonDead() {
-	if (can_moveR == true && alive == false) {
+	if (can_moveR == true && alive == false && knockback == false) {
 		inputType.left = 0;
 		inputType.right = 0;
 		SkeletonRight[SkeletonDeath].setCurrentFrame(AnimationDeadRight[frameDead / 5]);
 		commonFuc::render(SkeletonRight[SkeletonDeath]);
 		frameDead++;
-		std::cout << frameDead / 10 << std::endl;
-		if ((frameDead / 5) >= 15) {
-			frameDead = 0;
-			alive = true;
-		}
 	}
-	else if (can_moveL == true && alive == false) {
+	else if (can_moveL == true && alive == false && knockback == false) {
 		inputType.left = 0;
 		inputType.right = 0;
 		SkeletonLeft[SkeletonDeath].setCurrentFrame(AnimationDeadLeft[frameDead / 5]);
 		commonFuc::render(SkeletonLeft[SkeletonDeath]);
 		frameDead++;
-		std::cout << frameDead / 10 << std::endl;
-		if ((frameDead / 5) >= 15) {
+	}
+	if (alive == false) {
+		if (frameDead / 5 >= animationSkeletonDeadFrame) {
 			frameDead = 0;
 			alive = true;
 		}
 	}
 }
 
-
-
-void Monster::doPlayer(gameMap& game_map) {
-	x_val = 0;
+void Monster::gravity() {
 	y_val += gravity_speed;
 	if (y_val >= maxGravity_speed) {
 		y_val = maxGravity_speed;
 	}
+}
+
+void Monster::doPlayer(gameMap& game_map) {
+	x_val = 0;
 	if (inputType.right == 1) {
 		x_val += player_speed - 1;
 	}
@@ -242,7 +299,6 @@ void Monster::doPlayer(gameMap& game_map) {
 	}
 	SkeletonMove();
 	checkToMap(game_map);
-	//centerEntityOnMap(game_map);
 }
 
 void Monster::checkToMap(gameMap& game_map) {
@@ -301,7 +357,7 @@ void Monster::checkToMap(gameMap& game_map) {
 				y_pos = y_v2 * TILE_SIZE - height_frame - 1;
 				y_val = 0;
 				on_ground = true;
-				
+
 			}
 			else {
 				on_ground = false;
@@ -314,7 +370,7 @@ void Monster::checkToMap(gameMap& game_map) {
 			}
 		}
 	}
-	
+
 	if (x_pos + x_val > 0) {
 		x_pos += x_val;
 		//y_pos += y_val;
@@ -323,20 +379,48 @@ void Monster::checkToMap(gameMap& game_map) {
 }
 
 void Monster::SkeletonMove() {
-	if (x_pos >= animationB) {
+	if (x_pos >= animationB && inputType.attack == 0) {
 		can_moveR = false;
 		can_moveL = true;
 	}
-	if (x_pos <= animationA) {
+	if (x_pos <= animationA && inputType.attack == 0) {
 		can_moveL = false;
 		can_moveR = true;
 	}
-	if (can_moveR == true) {
+	if (can_moveR == true && inputType.attack == 0) {
 		SetInputRight();
 	}
-	else if (can_moveL == true) {
+	else if (can_moveL == true && inputType.attack == 0) {
 		SetInputLeft();
 	}
 }
 
 
+
+void Monster::SkeletonMeetPlayer(SDL_Rect player) {
+	if (player.x >= animationA && player.x <= animationB ) {
+		if (player.x + player.w < x_pos && can_moveR == true) {
+			can_moveR = false;
+			can_moveL = true;
+			SetInputLeft();
+		}
+		else if (player.x  < x_pos && can_moveL == true){
+			if ( x_pos - player.x - player.w <= 0) {
+				inputType.attack = 1;
+				setInputStop();
+			}
+		}
+		else if (x_pos + width_frame < player.x && can_moveL == true) {
+			can_moveR = true;
+			can_moveL = false;
+			SetInputRight();
+		}
+		else if (x_pos + width_frame <= player.x && can_moveR == true) {
+			if (player.x - x_pos - width_frame <= 5) {
+				inputType.attack = 1;
+				setInputStop();
+			}
+		}
+	}
+
+}

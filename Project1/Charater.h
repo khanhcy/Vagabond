@@ -50,6 +50,9 @@ public:
 	bool checkMap(gameMap& game_map);
 	void setMapXY(const int map_x_, const int map_y_){ map_x = map_x_; map_y = map_y_; };
 	void centerEntityOnMap(gameMap& game_map);
+	bool attackMonster(SDL_Rect& Monster);
+
+
 	void animationRun();
 	void animationJump();
 	void animationDash();
@@ -57,7 +60,7 @@ public:
 	void animationAttack();
 
 	SDL_Rect getCharater() {
-		SDL_Rect res = { x_pos, y_pos, 140, height_frame };
+		SDL_Rect res = { x_pos, y_pos, height_frame, height_frame };
 		if (inputType.attack == 1 && run_left == status) {
 			res.x -= 89;
 		}

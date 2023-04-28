@@ -31,6 +31,8 @@ public:
 	void doPlayer(gameMap& game_map);
 	void checkToMap(gameMap& game_map);
 	void setMapXY(const int map_x_, const int map_y_) { map_x = map_x_; map_y = map_y_; };
+	void SkeletonMeetPlayer(SDL_Rect player);
+	void gravity();
 
 
 	void animationSkeletonWalk();
@@ -43,6 +45,8 @@ public:
 	void SetAnimationPos(const int& posA, const int& posB) { animationA = posA; animationB = posB; }
 	void SetInputLeft() { inputType.right = 0, inputType.left = 1; }
 	void SetInputRight() { inputType.left = 0, inputType.right = 1; }
+	void setInputStop(){ inputType.left = 0, inputType.right = 0; }
+	void setInputAttack() { inputType.attack = 1; }
 	void SkeletonMove();
 		
 
@@ -56,7 +60,8 @@ public:
 	int getX_Pos() { return x_pos; };
 	int getY_Pos() { return y_pos; };
 	bool alive;
-
+	int healSkeleton = 0;
+	bool knockback;
 
 private:
 	float x_val;
@@ -86,6 +91,7 @@ private:
 	int frame = 0;
 	int frameDead = 0;
 	int frameAttack = 0;
+	int frameHit = 0;
 
 	std::vector<Entity> SkeletonRight;
 	std::vector<Entity> SkeletonLeft;

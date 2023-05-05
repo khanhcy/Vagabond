@@ -9,10 +9,6 @@ const int animationSkeletonAttackFrame = 18;
 const int animationSkeletonHitFrame = 8;
 const int animationSkeletonDeadFrame = 15;
 
-const int animationBatFlyFrame = 4;
-const int animationBatAttackFrame = 14;
-const int animationBatDeadFrame = 6;
-const int animationBatHitFrame = 1;
 
 class Monster {
 public:
@@ -24,9 +20,14 @@ public:
 		SkeletonHit
 
 	};
+	enum HP_list {
+		HP_1,
+		HP_2,
+		HP_3,
+		HP_size,
+	};
 	Monster();
 	void loadSkeletonImage();
-	void loadBatImage();
 	void show();
 	void doPlayer(gameMap& game_map);
 	void checkToMap(gameMap& game_map);
@@ -48,8 +49,10 @@ public:
 	void setInputStop(){ inputType.left = 0, inputType.right = 0; }
 	void setInputAttack() { inputType.attack = 1; }
 	void SkeletonMove();
+	void showHP();
+	void resetMonster();
 		
-
+	bool attackCharater(SDL_Rect Charater);
 	void setX_val(const float xVal) { x_val = xVal;}
 	void setY_val(const float yVal) { y_val = yVal;}
 	void setX_Pos(const float xPos) { x_pos = xPos;}
@@ -60,10 +63,10 @@ public:
 	int getX_Pos() { return x_pos; };
 	int getY_Pos() { return y_pos; };
 	bool alive;
-	int healSkeleton = 0;
 	bool knockback;
 
 private:
+	int healSkeleton;
 	float x_val;
 	float y_val;
 
@@ -95,16 +98,7 @@ private:
 
 	std::vector<Entity> SkeletonRight;
 	std::vector<Entity> SkeletonLeft;
-
-
-	std::vector<Entity> BatFlyLeft;
-	std::vector<Entity> BatFlyRight;
-	std::vector<Entity> BatAttackLeft;
-	std::vector<Entity> BatAttackRight;
-	std::vector<Entity> BatDeadLeft;
-	std::vector<Entity> BatDeadRight;
-	std::vector<Entity> BatHitkLeft;
-	std::vector<Entity> BatHitLLeft;
+	Entity HP_Monster;
 
 
 	SDL_Rect AnimationWalkRight[animationSkeletonWalkFrame];
@@ -115,7 +109,10 @@ private:
 	SDL_Rect AnimationDeadLeft[animationSkeletonDeadFrame];
 	SDL_Rect AnimationHitRight[animationSkeletonHitFrame];
 	SDL_Rect AnimationHitLeft[animationSkeletonHitFrame];
+	SDL_Rect R_HP[HP_size];
 
 	Input inputType;
 
+
+	int commback;
 };

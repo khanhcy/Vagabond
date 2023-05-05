@@ -2,21 +2,21 @@
 
 Charater::Charater()
 {
-	x_pos = 200;
-	y_pos = 100;
+	x_pos = 120;
+	y_pos = 800;
 	x_val = 0;
 	y_val = 0;
 	frame = 0;
 	status = -1;
 	//width_frame = 0;
 	//height_frame = 0;
-	inputType.right = 0;
+	inputType.right = 1;
 	inputType.left = 0;
 	inputType.jump = 0;
 	on_ground = false;
 	on_block = false;
 	dashing = true;
-	deading = false;
+	alive = true;
 	map_x = 0;
 	map_y = 0;
 
@@ -25,11 +25,18 @@ Charater::Charater()
 	frameRunEnd = 0;
 	frameDash = 0;
 
-	centermap = true;
 
 	dashTime = 0;
 };
 
+bool check_thorn(int n) {
+	for (int i = 0; i < sizeof(Map_thorn); i++) {
+		if (n == Map_thorn[i]) {
+			return true;
+		}
+	}
+	return false;
+}
 
 void Charater::loadImage() {
 	SDL_Rect R = { 42,83,45,45 };
@@ -117,12 +124,24 @@ void Charater::loadImage() {
 		Entity E(0, 0, 128, 128, commonFuc::loadTexture(s.c_str()));
 		E.setCurrentFrame(R);
 		deadAnimationRight.push_back(E);
+		if (deadAnimationFrame == 6) {
+			R = { 51,83,24,40 };
+			Entity E(0, 0, 128, 128, commonFuc::loadTexture("image/vagabond/knockback/vagabond-knockback2.png"));
+			E.setCurrentFrame(R);
+			deadAnimationRight.push_back(E);
+		}
 	}
 	for (int i = 0; i < deadAnimationFrame; i++) {
 		std::string s = "image/vagabond/death/vagabond-death-left" + std::to_string(i + 1) + ".png";
 		Entity E(0, 0, 128, 128, commonFuc::loadTexture(s.c_str()));
 		E.setCurrentFrame(R);
 		deadAnimationLeft.push_back(E);
+		if (deadAnimationFrame == 6) {
+			R = { 51,83,24,40 };
+			Entity E(0, 0, 128, 128, commonFuc::loadTexture("image/vagabond/knockback/vagabond-knockback-left2.png"));
+			E.setCurrentFrame(R);
+			deadAnimationRight.push_back(E);
+		}
 	}
 	R = { 26,83,140,70 };
 	for (int i = 0; i < attackAnimationFrame; i++) {
@@ -141,6 +160,50 @@ void Charater::loadImage() {
 
 };
 
+void Charater::loadHealBar() {
+	SDL_Rect R = { 8,10,14,12 };
+	{
+		std::string s = "image/UI/hp-icon.png";
+		Entity E(0, 0, 32, 32, commonFuc::loadTexture(s.c_str()));
+		E.setCurrentFrame(R);
+		HP.push_back(E);
+	}
+	{
+		std::string s = "image/UI/hp-bar.png";
+		Entity E(0, 0, 32, 32, commonFuc::loadTexture(s.c_str()));
+		HP.push_back(E);
+	}
+	R = { 6,10,122,28 };
+	{
+		std::string s = "image/UI/one-bar-container.png";
+		Entity E(0, 0, 32, 32, commonFuc::loadTexture(s.c_str()));
+		E.setCurrentFrame(R);
+		HP.push_back(E);
+	}
+
+}
+void Charater::animationKnockBack() {
+	if (knoback == true && alive == true) {
+		if (status == run_right) {
+			commonFuc::render(jumpAnimationRight[2]);
+		}
+		else {
+			commonFuc::render(jumpAnimationLeft[2]);
+			
+		}
+		cnt++;
+		if (cnt == 10) {
+			knoback = false;
+			heal--;
+			cnt = 0;
+		}
+	}
+	else if (knoback == true && alive == false) {
+		knoback = false;
+	}
+	
+	
+}
 
 void Charater::show() {
 	SDL_Rect dest = { x_pos - map_x ,y_pos - map_y, width_frame, height_frame };
@@ -169,7 +232,7 @@ void Charater::show() {
 		dashAnimationRight[i].setEntity(dest);
 
 	}
-	for (int i = 0; i < deadAnimationFrame; i++) {
+	for (int i = 0; i <= deadAnimationFrame; i++) {
 		deadAnimationLeft[i].setEntity(dest);
 		deadAnimationRight[i].setEntity(dest);
 
@@ -187,16 +250,45 @@ void Charater::show() {
 		attackAnimationLeft[i].setEntity(dest);
 
 	}
-
+	if (heal == 0) {
+		alive = false;
+	}
 	animationRun();
 	animationJump();
 	animationDash();
-	animationDead();
 	animationAttack();
+	animationKnockBack();
+	animationDead();
+
+}
+
+void Charater::showBar() {
+	HP[bar].setEntity(0, 0, 45 ,15);
+	commonFuc::render(HP[bar]);
+	HP[icon].setEntity(2, 0, 15, 15);
+	commonFuc::render(HP[icon]);
+	if (heal == 3) {
+		HP[col_bal].setEntity(15, 0, 10, 15);
+		commonFuc::render(HP[col_bal]);
+		HP[col_bal].setEntity(25, 0, 10, 15);
+		commonFuc::render(HP[col_bal]);
+		HP[col_bal].setEntity(35, 0, 10, 15);
+		commonFuc::render(HP[col_bal]);
+	}
+	else if (heal == 2) {
+		HP[col_bal].setEntity(15, 0, 10, 15);
+		commonFuc::render(HP[col_bal]);
+		HP[col_bal].setEntity(25, 0, 10, 15);
+		commonFuc::render(HP[col_bal]);
+	}
+	else if (heal == 1) {
+		HP[col_bal].setEntity(15, 0, 10, 15);
+		commonFuc::render(HP[col_bal]);
+	}
 }
 
 void Charater::animationRun() {
-	if (status == 1 && deading == false && inputType.attack == 0) {
+	if (status == 1 && alive == true && inputType.attack == 0 && knoback == false) {
 		if (on_ground == true && inputType.dash == 0) {
 			if (inputType.left == 1) {
 				commonFuc::render(RunAnimationLeft[(frame / 8) % 8]);
@@ -214,12 +306,12 @@ void Charater::animationRun() {
 				}
 				else {
 					commonFuc::render(idleAnimationLeft[(frame / 10) % 2]);
-					
+
 				}
 			}
 		}
 	}
-	else if (status == 0 && deading == false && inputType.attack == 0) {
+	else if (status == 0 && alive == true && inputType.attack == 0 && knoback == false) {
 		if (on_ground == true && inputType.dash == 0) {
 			if (inputType.right == 1) {
 				commonFuc::render(RunAnimationRight[(frame / 8) % 8]);
@@ -303,6 +395,9 @@ void Charater::HandleInputAction(SDL_Event e) {
 		case SDLK_a:
 			inputType.attack = 1;
 			break;
+		case SDLK_s:
+			nextMap = true;
+			break;
 		default:
 			break;
 		}
@@ -318,7 +413,6 @@ void Charater::HandleInputAction(SDL_Event e) {
 			break;
 		case SDLK_SPACE :
 			jump_duration = SDL_GetTicks() - jumpStartTime;
-			//std::cout << jump_duration << std::endl;
 			break;
 		default:
 			break;
@@ -327,21 +421,20 @@ void Charater::HandleInputAction(SDL_Event e) {
 }
 
 void Charater::animationDash() {
-	if (status == run_left) {
+	if (status == run_left && knoback == false) {
 		if (inputType.dash == 1) {
 			commonFuc::render(dashAnimationLeft[1]);
 		}
 	}
-	else if (status == run_right) {
+	else if (status == run_right && knoback == false) {
 		if (inputType.dash == 1) {
 			commonFuc::render(dashAnimationRight[1]);
 		}
-		
 	}
 }
 
 void Charater::animationAttack() {
-	if (status == run_left) {
+	if (status == run_left && knoback == false) {
 		if (inputType.attack == 1) {
 			jumping = false;
 			inputType.jump = 0;
@@ -355,7 +448,7 @@ void Charater::animationAttack() {
 			}
 		}
 	}
-	else if (status == run_right) {
+	else if (status == run_right && knoback == false) {
 		if (inputType.attack == 1) {
 			jumping = false;
 			inputType.jump = 0;
@@ -373,7 +466,7 @@ void Charater::animationAttack() {
 }
 
 void Charater::animationDead() {
-	if (deading) {
+	if (alive == false && knoback == false) {
 		x_val = 0;
 		y_val = 0;
 		jumping = false;
@@ -385,34 +478,20 @@ void Charater::animationDead() {
 		if (status == run_left) {
 			commonFuc::render(deadAnimationLeft[frameDead / 10]);
 			frameDead++;
-			if (frameDead / 10 >= 7) {
+			if (frameDead / 10 >= 7){
 				frameDead = 0;
-				deading = false;
-				x_pos = 100;
-				y_pos = 100;
+				resetcharater();
 			}
 		}
-		else if (status == run_right) {
+		else if (status == run_right && knoback == false) {
 			commonFuc::render(deadAnimationRight[frameDead / 10]);
 			frameDead++;
-			if (frameDead / 10 >= 7) {
+			if (frameDead / 10 >= 7){
 				frameDead = 0;
-				deading = false;
-				x_pos = 100;
-				y_pos = 100;
+				resetcharater();
 			}
 		}
 	}
-}
-
-bool check_step(int n) {
-	for (int i = 0; i < sizeof(Map_step); i++) {
-		if (n == Map_step[i]) {
-			return true;
-
-		}
-	}
-	return false;
 }
 
 void Charater::doPlayer(gameMap& game_map) {
@@ -451,38 +530,19 @@ void Charater::doPlayer(gameMap& game_map) {
 		}
 		else {
 			if (jump_duration <= 200) { // Giữ phím nhảy trong thời gian ngắn (200ms)
-				y_val = 3 * jump_speed * jumpTime / 1000 - jump_speed; // Nhảy thấp
+				y_val = 3.5 * jump_speed * jumpTime / 1000 - jump_speed; // Nhảy thấp
 			}
 			else { // Giữ phím nhảy trong thời gian dài
 				y_val = 2 * jump_speed * jumpTime / 1000 - jump_speed;
 			}
 			//std::cout << jump_duration << std::endl;
 		}
-
 	}
-	checkToMap(game_map);
-	//if (checkMap(game_map) == 1) {
-	//	if (x_val > 0 && step_top == 1) {
-	//		x_pos += 2;
-	//		y_pos -= 10;
-	//	}
-	//	else if (x_val > 0 && step_top == 0) {
-	//		x_pos += 2;
-	//	}
-	//	else if (x_val < 0 && step_top == 1) {
-	//		x_pos -= 2;
-	//	}
-	//	else {
-	//		x_pos -= 2;
-	//		y_pos -= 10;
-	//	}
-	//	//x_val = 0;
-	//	y_val = 0;
-	//}
-	if (checkMap(game_map)) {
-		deading = true;
+	if (checkThorn(game_map)) {
+		alive = false;
 	}
 	centerEntityOnMap(game_map);
+	checkToMap(game_map);
 
 }
 
@@ -497,8 +557,8 @@ void Charater::checkToMap(gameMap& game_map) {
 	int y_h1 = 0;
 	int x_h2 = 0;
 	int y_h2 = 0;
-	x_h1 = (x_pos + x_val) / TILE_SIZE;
-	x_h2 = (x_pos + x_val + width_frame) / TILE_SIZE;
+	x_h1 = (x_pos + x_val) / TILE_SIZE ;
+	x_h2 = (x_pos + x_val + width_frame) / TILE_SIZE ;
 	y_h1 = (y_pos + 1) / TILE_SIZE;
 	y_h2 = (y_pos + heightMin - 1) / TILE_SIZE;
 
@@ -532,7 +592,6 @@ void Charater::checkToMap(gameMap& game_map) {
 				x_val = 0;
 			}
 		}
-
 	}
 
 	// Kiểm tra va chạm theo chiều dọc
@@ -564,7 +623,50 @@ void Charater::checkToMap(gameMap& game_map) {
 	y_pos += y_val;
 }
 
-bool Charater::checkMap(gameMap& game_map)
+bool Charater::checkThorn(gameMap& game_map)
+{
+	// Calculate the position of the character on the TileMap
+	int leftTile = (x_pos) / TILE_SIZE;
+	int rightTile = (x_pos + width_frame + 20) / TILE_SIZE;
+	int topTile = (y_pos) / TILE_SIZE;
+	int bottomTile = (y_pos + height_frame + 20) / TILE_SIZE;
+	// check if charactes has collide with a tileset on TileMap
+	for (int i = topTile; i < bottomTile; i++) {
+		for (int j = leftTile; j < rightTile; j++) {
+			if (game_map.getMap().tile[i][j] == item_key) {
+				key++;
+				game_map.setMap(i, j, -1);
+			}
+			if (key > 0) {
+				if (game_map.getMap().tile[i][j] == 162) {
+					game_map.setMap(i, j, 163);
+				}
+				if (game_map.getMap().tile[i][j] == 177) {
+					game_map.setMap(i, j, 178);
+					key--;
+				}
+			}
+			else {
+				if (game_map.getMap().tile[i][j] == 177) {
+					if (x_val > 0) {
+						x_pos -= 10;
+					}
+					else {
+						x_pos += 10;
+					}
+					x_val = 0;
+				}
+			}
+
+			if (check_thorn(game_map.getMap().tile[i][j]) == 1)
+			{
+				return true;
+			}	
+		}
+	}
+	return false;
+}
+bool Charater::checkKey(gameMap& game_map)
 {
 	// Calculate the position of the character on the TileMap
 	int leftTile = (x_pos) / TILE_SIZE;
@@ -575,11 +677,11 @@ bool Charater::checkMap(gameMap& game_map)
 	// check if charactes has collide with a tileset on TileMap
 	for (int i = topTile; i < bottomTile; i++) {
 		for (int j = leftTile; j < rightTile; j++) {
-			if (commonFuc::check_thorn(game_map.getMap().tile[i][j]) == 1)
+			if (game_map.getMap().tile[i][j] == item_key)
 			{
 				return true;
 			}
-			
+
 		}
 	}
 	return false;
@@ -595,11 +697,7 @@ void Charater::centerEntityOnMap(gameMap& game_map) {
 		game_map.getStartX(game_map.getMap().maxX - SCREEN_WIDTH);
 	}
 	int startY_ = y_pos - (SCREEN_HEIGHT / 2);
-	if (abs(his - y_pos) > 154) {
-		his = y_pos;
-		game_map.getStartY(startY_);
-
-	}
+	game_map.getStartY(startY_);
 	if (startY_ < 0) {
 		game_map.getStartY(0);
 	}
@@ -607,7 +705,7 @@ void Charater::centerEntityOnMap(gameMap& game_map) {
 		game_map.getStartY(game_map.getMap().maxY - SCREEN_HEIGHT);
 
 	}
-
+	std::cout << x_pos << " " << y_pos << std::endl;
 }
 bool Charater::attackMonster(SDL_Rect& Monster) {
 
@@ -621,7 +719,20 @@ bool Charater::attackMonster(SDL_Rect& Monster) {
 		if (commonFuc::CheckCollision(Monster, R_charater)) {
 			return true;
 		}
-			
 	}
 	return false;
+}
+
+
+void Charater::resetcharater() {
+	if (status_Map == 1) {
+		x_pos = 120;
+		y_pos = 800;
+	}
+	else {
+		x_pos = 1200;
+		y_pos = 100;
+	}
+	heal = 3;
+	alive = true;
 }

@@ -7,12 +7,11 @@
 #include"Monster.h"
 
 
-std::vector<Monster*> make_Skeleton_list()
+std::vector<Monster*> make_Skeleton_list_map1()
 {
     std::vector<Monster*> list_skeleton;
-    for (int i = 0; i < 1; i++)
     {
-        Monster* skeleton = new Monster[1];
+        Monster* skeleton = new Monster;
         skeleton->loadSkeletonImage();
         skeleton->SetClips();
         skeleton->setX_Pos(625);
@@ -20,21 +19,94 @@ std::vector<Monster*> make_Skeleton_list()
         skeleton->SetAnimationPos(skeleton->getX_Pos() - 100, skeleton->getX_Pos() + 100);
         list_skeleton.push_back(skeleton);
     }
+    {
+        Monster* skeleton = new Monster;
+        skeleton->loadSkeletonImage();
+        skeleton->SetClips();
+        skeleton->setX_Pos(380);
+        skeleton->setY_Pos(800);
+        skeleton->SetAnimationPos(skeleton->getX_Pos() - 80, skeleton->getX_Pos() + 80);
+        list_skeleton.push_back(skeleton);
+    }
+    {
+        Monster* skeleton = new Monster;
+        skeleton->loadSkeletonImage();
+        skeleton->SetClips();
+        skeleton->setX_Pos(460);
+        skeleton->setY_Pos(300);
+        skeleton->SetAnimationPos(skeleton->getX_Pos() - 60, skeleton->getX_Pos() + 60);
+        list_skeleton.push_back(skeleton);
+    }
+    {
+        Monster* skeleton = new Monster;
+        skeleton->loadSkeletonImage();
+        skeleton->SetClips();
+        skeleton->setX_Pos(270);
+        skeleton->setY_Pos(140);
+        skeleton->SetAnimationPos(skeleton->getX_Pos() - 70, skeleton->getX_Pos() + 70);
+        list_skeleton.push_back(skeleton);
+    }
+    {
+        Monster* skeleton = new Monster;
+        skeleton->loadSkeletonImage();
+        skeleton->SetClips();
+        skeleton->setX_Pos(390);
+        skeleton->setY_Pos(140);
+        skeleton->SetAnimationPos(skeleton->getX_Pos() - 70, skeleton->getX_Pos() + 70);
+        list_skeleton.push_back(skeleton);
+    }
     return list_skeleton;
 }
-
-std::vector<Monster*> make_Bat_litst() {
-    std::vector<Monster*> list_Bat;
-    for (int i = 0; i < 1; i++) {
-        Monster* bat = new Monster[1];
-        bat->loadBatImage();
-        bat->setX_Pos(500);
-        bat->setY_Pos(50);
-        list_Bat.push_back(bat);
+std::vector<Monster*> make_Skeleton_list_map2()
+{
+    std::vector<Monster*> list_skeleton;
+    {
+        Monster* skeleton = new Monster;
+        skeleton->loadSkeletonImage();
+        skeleton->SetClips();
+        skeleton->setX_Pos(130);
+        skeleton->setY_Pos(140);
+        skeleton->SetAnimationPos(skeleton->getX_Pos() - 90, skeleton->getX_Pos() + 90);
+        list_skeleton.push_back(skeleton);
     }
-    return list_Bat;
+    {
+        Monster* skeleton = new Monster;
+        skeleton->loadSkeletonImage();
+        skeleton->SetClips();
+        skeleton->setX_Pos(170);
+        skeleton->setY_Pos(140);
+        skeleton->SetAnimationPos(skeleton->getX_Pos() - 90, skeleton->getX_Pos() + 90);
+        list_skeleton.push_back(skeleton);
+    }
+    {
+        Monster* skeleton = new Monster;
+        skeleton->loadSkeletonImage();
+        skeleton->SetClips();
+        skeleton->setX_Pos(870);
+        skeleton->setY_Pos(800);
+        skeleton->SetAnimationPos(skeleton->getX_Pos() - 90, skeleton->getX_Pos() + 90);
+        list_skeleton.push_back(skeleton);
+    }
+    {
+        Monster* skeleton = new Monster;
+        skeleton->loadSkeletonImage();
+        skeleton->SetClips();
+        skeleton->setX_Pos(980);
+        skeleton->setY_Pos(800);
+        skeleton->SetAnimationPos(skeleton->getX_Pos() - 90, skeleton->getX_Pos() + 90);
+        list_skeleton.push_back(skeleton);
+    }
+    {
+        Monster* skeleton = new Monster;
+        skeleton->loadSkeletonImage();
+        skeleton->SetClips();
+        skeleton->setX_Pos(1090);
+        skeleton->setY_Pos(800);
+        skeleton->SetAnimationPos(skeleton->getX_Pos() - 90, skeleton->getX_Pos() + 90);
+        list_skeleton.push_back(skeleton);
+    }
+    return list_skeleton;
 }
-
 
 int main(int argc, char* args[])
 {
@@ -44,17 +116,18 @@ int main(int argc, char* args[])
     Entity background(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, commonFuc::loadTexture("image/background/0.png"));
 
     gameMap game_map;
-    game_map.loadMap("image/map/map6.csv", "image/map/DungeonTileSet.png");
+    game_map.loadMap("image/map/map1.csv", "image/map/DungeonTileSet.png");
     bool gameRunning = true;
 
-    
     Charater charaterr;
 
     Monster monster;
     charaterr.loadImage();
+    charaterr.loadHealBar();
 
-    std::vector<Monster*> Skeleton_list = make_Skeleton_list();
-    std::vector<Monster*> Bat_list = make_Bat_litst();
+    std::vector<Monster*> Skeleton_list1 = make_Skeleton_list_map1();
+    std::vector<Monster*> Skeleton_list2 = make_Skeleton_list_map2();
+
 
     SDL_Event event;
 
@@ -76,25 +149,48 @@ int main(int argc, char* args[])
         charaterr.doPlayer(game_map);
         charaterr.show();
         game_map.drawMap();
-
-
-        for (int i = 0; i < Skeleton_list.size(); i++) {
-            Monster* skeleton = Skeleton_list.at(i);
-            skeleton->setMapXY(game_map.getMap().startX, game_map.getMap().startY);
-            skeleton->doPlayer(game_map);
-            skeleton->show();
-            skeleton->gravity();
-            SDL_Rect R_monster = { skeleton->getX_Pos(), skeleton->getY_Pos(), skeleton->get_WithFrame(), skeleton->get_HeighFrame()};
-            if(charaterr.attackMonster(R_monster)) {
-                skeleton->knockback = true;
+        charaterr.showBar();
+        if (game_map.statusMap == 1) {
+            for (int i = 0; i < Skeleton_list1.size(); i++) {
+                Monster* skeleton = Skeleton_list1.at(i);
+                skeleton->setMapXY(game_map.getMap().startX, game_map.getMap().startY);
+                skeleton->doPlayer(game_map);
+                skeleton->show();
+                skeleton->showHP();
+                skeleton->gravity();
+                SDL_Rect R_monster = { skeleton->getX_Pos(), skeleton->getY_Pos(), skeleton->get_WithFrame(), skeleton->get_HeighFrame() };
+                if (charaterr.attackMonster(R_monster)) {
+                    skeleton->knockback = true;
+                }
+                if (skeleton->attackCharater(charaterr.getCharater())) {
+                    charaterr.knoback = true;
+                }
+                skeleton->SkeletonMeetPlayer(charaterr.getCharater());
             }
-            skeleton->SkeletonMeetPlayer(charaterr.getCharater());
+            if (charaterr.nextMap == true) {
+                game_map.nextMap();
+                game_map.statusMap = 2;
+                charaterr.nextMap = false;
+                charaterr.setstatusMap(2);
+            }
         }
-        for (int i = 0; i < Bat_list.size(); i++) {
-            Monster* Bat = Bat_list.at(i);
-            Bat->setMapXY(game_map.getMap().startX, game_map.getMap().startY);
-            Bat->doPlayer(game_map);
-            Bat->show();
+        else {
+            for (int i = 0; i < Skeleton_list2.size(); i++) {
+                Monster* skeleton = Skeleton_list2.at(i);
+                skeleton->setMapXY(game_map.getMap().startX, game_map.getMap().startY);
+                skeleton->doPlayer(game_map);
+                skeleton->show();
+                skeleton->showHP();
+                skeleton->gravity();
+                SDL_Rect R_monster = { skeleton->getX_Pos(), skeleton->getY_Pos(), skeleton->get_WithFrame(), skeleton->get_HeighFrame() };
+                if (charaterr.attackMonster(R_monster)) {
+                    skeleton->knockback = true;
+                }
+                if (skeleton->attackCharater(charaterr.getCharater())) {
+                    charaterr.knoback = true;
+                }
+                skeleton->SkeletonMeetPlayer(charaterr.getCharater());
+            }
         }
 
         commonFuc::display();

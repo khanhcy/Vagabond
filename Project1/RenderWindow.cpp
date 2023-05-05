@@ -51,8 +51,8 @@ void commonFuc::render(Entity& p_entity)
 	SDL_Rect src;
 	src.x = p_entity.getCurrentFrame().x;
 	src.y = p_entity.getCurrentFrame().y;
-	src.w = p_entity.getCurrentFrame().w ;
-	src.h = p_entity.getCurrentFrame().h ;
+	src.w = p_entity.getCurrentFrame().w;
+	src.h = p_entity.getCurrentFrame().h;
 	SDL_Rect dst;
 	dst.x = p_entity.getX();
 	dst.y = p_entity.getY();
@@ -60,8 +60,6 @@ void commonFuc::render(Entity& p_entity)
 	dst.h = p_entity.getH();
 
 	SDL_RenderCopy(renderer, p_entity.getTex(), &src, &dst);
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderDrawRect(renderer, &dst);
 }
 
 //void commonFuc::render(Charator& p_charator)
@@ -87,8 +85,8 @@ void commonFuc::render(SDL_Texture* tex, SDL_Rect *src, SDL_Rect dst, double ang
 
 void commonFuc::render(SDL_Texture* tex, SDL_Rect *src, SDL_Rect dst) {
 
-    SDL_SetRenderDrawColor(renderer, 200, 0, 0, 255);
-    SDL_RenderDrawRect(renderer, src);
+    //SDL_SetRenderDrawColor(renderer, 200, 0, 0, 255);
+    //SDL_RenderDrawRect(renderer, src);
     SDL_RenderCopy(renderer, tex, src, &dst);
 }
 
@@ -117,14 +115,14 @@ bool commonFuc::check_wall(int n) {
 
 
 
-bool commonFuc::check_thorn(int n) {
-	for (int i = 0; i < sizeof(Map_thorn); i++) {
-		if (n == Map_thorn[i]) {
-			return true;
-		}
-	}
-	return false;
-}
+//bool commonFuc::check_thorn(int n) {
+//	for (int i = 0; i < sizeof(Map_thorn); i++) {
+//		if (n == Map_thorn[i]) {
+//			return true;
+//		}
+//	}
+//	return false;
+//}
 bool commonFuc::CheckCollision(const SDL_Rect& object1, const SDL_Rect& object2) {
     // Kiểm tra va chạm giữa hai hình chữ nhật bằng cách kiểm tra xem chúng có chồng lên nhau không
     if (object1.x + object1.w <= object2.x) {

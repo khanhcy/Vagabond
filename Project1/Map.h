@@ -12,7 +12,7 @@ const int MAX_MAP_Y = 30;
 
 
 typedef struct map {
-
+    int statusMap = 0;
     // tọa độ tính theo pixel bắt đầu x trong màn hình;
     int startX;
     // tọa độ bắt đầu của y trong màn hình
@@ -24,7 +24,6 @@ typedef struct map {
 
     // mảng chứa map
     int tile[MAX_MAP_Y][MAX_MAP_X];
-
     std::string fileName;
 };
 
@@ -42,7 +41,8 @@ public:
     void getStartX(const int startX_) { gamemap.startX = startX_; };
     void getStartY(const int startY_) { gamemap.startY = startY_; };
     void setMap(int x, int y, int z) { gamemap.tile[x][y] = z; }
-
+    void nextMap();
+    int statusMap = 1;
 private:
     map gamemap;
     //số lượng tileset

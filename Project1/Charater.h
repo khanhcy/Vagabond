@@ -14,10 +14,10 @@ const int attackAnimationFrame = 3;
 
 
 // trọng lực rơi
-const float gravity_speed = 3;
+const float gravity_speed = 5;
 
 // tốc độ rơi tối đa
-const float maxGravity_speed = 4;
+const float maxGravity_speed = 7;
 
 const float jump_speed = 5.5;
 const float player_speed = 3;
@@ -31,11 +31,15 @@ const int item_chest = 147;
 //gai từ 211 đến 216;
 //bậc lên 20;
 
-
 class gameMap;
 
 class Charater{
 public:
+	enum hp {
+		icon,
+		col_bal,
+		bar,
+	};
 	enum animation
 	{
 		run_right,
@@ -47,10 +51,13 @@ public:
 	void HandleInputAction(SDL_Event e);
 	void doPlayer(gameMap& game_map);
 	void checkToMap(gameMap& game_map);
-	bool checkMap(gameMap& game_map);
+	bool checkThorn(gameMap& game_map);
+	bool checkKey(gameMap& game_map);
 	void setMapXY(const int map_x_, const int map_y_){ map_x = map_x_; map_y = map_y_; };
 	void centerEntityOnMap(gameMap& game_map);
 	bool attackMonster(SDL_Rect& Monster);
+	void showBar();
+	void resetcharater();
 
 
 	void animationRun();
@@ -58,12 +65,14 @@ public:
 	void animationDash();
 	void animationDead();
 	void animationAttack();
-
+	void animationKnockBack();
+	void setstatusMap(int x) {
+		status_Map = x;
+	}
+	void HealBar();
+	void loadHealBar();
 	SDL_Rect getCharater() {
 		SDL_Rect res = { x_pos, y_pos, height_frame, height_frame };
-		if (inputType.attack == 1 && run_left == status) {
-			res.x -= 89;
-		}
 		return res;
 	}
 	bool attacking() {
@@ -74,6 +83,11 @@ public:
 			return false;
 		}
 	}
+	int setheal() {
+		return heal;
+	}
+	bool knoback = false;
+	bool nextMap = false;
 private:
 	float x_val;
 	float y_val;
@@ -88,19 +102,22 @@ private:
 	//lưu vị trí map hiện tại
 	int map_x;
 	int map_y;
-
+	
 	// kích thước từng frame;
 	int width_frame = 45;
 	int height_frame = 45;
 
 	int status;
 
+
 	bool runing;
 	bool jumping;
 	bool on_block;
 	bool dashing;
-	bool centermap;
-	bool deading;
+	bool alive;
+	int heal = 3;
+	int cnt = 0;
+	int key = 0;
 
 
 	// biến để lưu thời gian bắt dâu nhảy
@@ -131,10 +148,11 @@ private:
 	std::vector<Entity> jumpAnimationRight;
 	std::vector<Entity> deadAnimationLeft;
 	std::vector<Entity> deadAnimationRight;
-	std::vector <Entity> attackAnimationLeft;
+	std::vector<Entity> attackAnimationLeft;
 	std::vector<Entity> attackAnimationRight;
-	
+
+	std::vector<Entity> HP;
 
 	Input inputType;
-
+	int status_Map = 1;
 };

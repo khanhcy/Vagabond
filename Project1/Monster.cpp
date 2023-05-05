@@ -20,7 +20,8 @@ Monster::Monster()
 	alive = true;
 	inputType.attack = 0;
 	knockback = false;
-	
+	healSkeleton = 0;
+	commback = 0;
 };
 
 void Monster::loadSkeletonImage() {
@@ -58,58 +59,12 @@ void Monster::loadSkeletonImage() {
 		SkeletonLeft.push_back(E);
 	}
 
-}
+	{
+		Entity R(commonFuc::loadTexture("image/UI/healMonster.png"));
+		HP_Monster = R;
+	}
 
-void Monster::loadBatImage() {
-	SDL_Rect R = { 86,54,94,72 };
-	for (int i = 0; i < animationBatAttackFrame; i++) {
-		std::string s = "image/Monster/Bat/Bat-bite/demon-bat-bite" + std::to_string(i + 1) + ".png";
-		Entity E(0, 0, 192, 192, commonFuc::loadTexture(s.c_str()));
-		E.setCurrentFrame(R);
-		BatAttackRight.push_back(E);
-	}
-	for (int i = animationBatAttackFrame - 1; i != -1; i--) {
-		std::string s = "image/Monster/Bat/Bat-bite/Bat-bite-left (" + std::to_string(i + 1) + ").png";
-		Entity E(0, 0, 192, 192, commonFuc::loadTexture(s.c_str()));
-		E.setCurrentFrame(R);
-		BatAttackLeft.push_back(E);
-	}
-	for (int i = 0; i < animationBatFlyFrame; i++) {
-		std::string s = "image/Monster/Bat/Bat-flying/demon-bat-flying" + std::to_string(i + 1) + ".png";
-		Entity E(0, 0, 192, 192, commonFuc::loadTexture(s.c_str()));
-		E.setCurrentFrame(R);
-		BatFlyRight.push_back(E);
-	}
-	for (int i = animationBatFlyFrame - 1; i != -1; i--) {
-		std::string s = "image/Monster/Bat/Bat-flying/Bat-fly-left (" + std::to_string(i + 1) + ").png";
-		Entity E(0, 0, 192, 192, commonFuc::loadTexture(s.c_str()));
-		E.setCurrentFrame(R);
-		BatFlyLeft.push_back(E);
-	}
-	for (int i = 0; i < animationBatDeadFrame; i++) {
-		std::string s = "image/Monster/Bat/Bat-death/demon-bat-death" + std::to_string(i + 1) + ".png";
-		Entity E(0, 0, 192, 192, commonFuc::loadTexture(s.c_str()));
-		E.setCurrentFrame(R);
-		BatDeadRight.push_back(E);
-	}
-	for (int i = animationBatDeadFrame - 1; i != -1; i--) {
-		std::string s = "image/Monster/Bat/Bat-death/Bat-dead-left (" + std::to_string(i + 1) + ").png";
-		Entity E(0, 0, 192, 192, commonFuc::loadTexture(s.c_str()));
-		E.setCurrentFrame(R);
-		BatDeadLeft.push_back(E);
-	}
-	{
-		std::string s = "image/Monster/Bat/Bat-knockback/demon-bat-knockback.png";
-		Entity E(0, 0, 192, 192, commonFuc::loadTexture(s.c_str()));
-		E.setCurrentFrame(R);
-		BatFlyRight.push_back(E);
-	}
-	{
-		std::string s = "image/Monster/Bat/Bat-knockback/bat-knockback-left.png";
-		Entity E(0, 0, 192, 192, commonFuc::loadTexture(s.c_str()));
-		E.setCurrentFrame(R);
-		BatFlyLeft.push_back(E);
-	}
+
 }
 
 void Monster::SetClips() {
@@ -157,7 +112,12 @@ void Monster::SetClips() {
 		AnimationHitLeft[animationSkeletonHitFrame - i - 1].w = 30;
 		AnimationHitLeft[animationSkeletonHitFrame - i - 1].h = 32;
 	}
-
+	for (int i = 0; i < HP_size; i++) {
+		R_HP[i].x = i * 47;
+		R_HP[i].y = 0;
+		R_HP[i].w = 47;
+		R_HP[i].h = 4;
+	}
 }
 
 void Monster::show() {
@@ -183,17 +143,26 @@ void Monster::show() {
 		dest.w = 90;
 		SkeletonLeft[SkeletonAttack].setEntity(dest);
 	}
-	
-	animationSkeletonWalk();
-	animationSkeletonDead();
-	animationSkeletonAttack();
-	animationSkeletonHit();
-	if (healSkeleton >= 4) {
-		alive = false;
-		healSkeleton = 0;
+	dest.x = x_pos - map_x;
+	dest.y = y_pos - map_y;
+	if (alive == false) {
+		if (commback > 100) {
+			alive = true;
+			commback = 0;
+		}
+		commback++;
+	}
+	else {
+		animationSkeletonWalk();
+		animationSkeletonAttack();
+		animationSkeletonHit();
+		animationSkeletonDead();
+		if (healSkeleton >= 3) {
+			alive = false;
+			healSkeleton = 0;
+		}
 	}
 }
-
 
 void Monster::animationSkeletonWalk() {
 	frame++;
@@ -236,7 +205,6 @@ void Monster::animationSkeletonAttack() {
 		}
 		
 	}
-	std::cout << healSkeleton << std::endl;
 	
 }
 
@@ -277,7 +245,6 @@ void Monster::animationSkeletonDead() {
 	if (alive == false) {
 		if (frameDead / 5 >= animationSkeletonDeadFrame) {
 			frameDead = 0;
-			alive = true;
 		}
 	}
 }
@@ -311,7 +278,7 @@ void Monster::checkToMap(gameMap& game_map) {
 	int y_h1 = 0;
 	int x_h2 = 0;
 	int y_h2 = 0;
-	x_h1 = (x_pos + x_val) / TILE_SIZE;
+	x_h1 = (x_pos + x_val ) / TILE_SIZE;
 	x_h2 = (x_pos + x_val + width_frame) / TILE_SIZE;
 	y_h1 = (y_pos + 1) / TILE_SIZE;
 	y_h2 = (y_pos + heightMin - 1) / TILE_SIZE;
@@ -398,7 +365,7 @@ void Monster::SkeletonMove() {
 
 
 void Monster::SkeletonMeetPlayer(SDL_Rect player) {
-	if (player.x >= animationA && player.x <= animationB ) {
+	if (player.x >= animationA && player.x <= animationB/* && player.y - y_pos < 5 && player.y - y_pos > -5*/) {
 		if (player.x + player.w < x_pos && can_moveR == true) {
 			can_moveR = false;
 			can_moveL = true;
@@ -422,5 +389,37 @@ void Monster::SkeletonMeetPlayer(SDL_Rect player) {
 			}
 		}
 	}
+}
 
+bool Monster::attackCharater(SDL_Rect charater) {
+	if (inputType.attack == 1 && frameAttack == 36) {
+		SDL_Rect R_Monster = { x_pos + width_frame, y_pos , width_frame , height_frame };
+		if (can_moveL == true) {
+			R_Monster.x -= width_frame * 2;
+		}
+		if (commonFuc::CheckCollision(charater, R_Monster)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+void Monster::showHP() {
+	if (alive == true) {
+		SDL_Rect R_skeleton = { x_pos - map_x, y_pos - map_y, 30,4 };
+		if (can_moveL == true) {
+			R_skeleton.x += 15;
+		}
+		HP_Monster.setEntity(R_skeleton);
+		if (healSkeleton == 0) {
+			HP_Monster.setCurrentFrame(R_HP[2]);
+		}
+		else if (healSkeleton == 1) {
+			HP_Monster.setCurrentFrame(R_HP[1]);
+		}
+		else if (healSkeleton == 2) {
+			HP_Monster.setCurrentFrame(R_HP[0]);
+		}
+		commonFuc::render(HP_Monster);
+	}
 }

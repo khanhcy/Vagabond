@@ -1,5 +1,6 @@
 ﻿#include"Map.h"
 
+
 void gameMap::loadMap(const char* name, const char* path)
 {
 	std::ifstream file(name);
@@ -23,7 +24,7 @@ void gameMap::loadMap(const char* name, const char* path)
 			}
 		}
 	}
-	
+	file.close();
 	gamemap.maxX = gamemap.maxX * (TILE_SIZE );
 	gamemap.maxY = gamemap.maxY * (TILE_SIZE );
 	
@@ -34,7 +35,6 @@ void gameMap::loadMap(const char* name, const char* path)
 
 	Entity tilset(commonFuc::loadTexture(path));
 	tileSet.push_back(tilset);
-
 }
 
 
@@ -88,4 +88,21 @@ void gameMap::drawMap() {
 			}
 		}
 	}
+}
+
+void gameMap::nextMap() {
+	std::ifstream file("image/map/map2.csv");
+	for (int i = 0; i < MAX_MAP_Y; i++) {
+		std::string s;
+		file >> s;
+		std::stringstream ss(s);
+		std::string c;
+		int j = 0;
+		while (getline(ss, c, ',')) {
+			int x = stoi(c);
+			gamemap.tile[i][j] = x;
+			j++;
+		}
+	}
+	file.close();
 }

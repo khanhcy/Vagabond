@@ -64,6 +64,7 @@ public:
 	int getY_Pos() { return y_pos; };
 	bool alive;
 	bool knockback;
+	bool holdKey = false;
 
 private:
 	int healSkeleton;

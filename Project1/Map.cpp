@@ -35,6 +35,7 @@ void gameMap::loadMap(const char* name, const char* path)
 
 	Entity tilset(commonFuc::loadTexture(path));
 	tileSet.push_back(tilset);
+	gamemap.tile[4][27] = -1;
 }
 
 
@@ -105,4 +106,80 @@ void gameMap::nextMap() {
 		}
 	}
 	file.close();
+	gamemap.tile[24][4] = -1;
+}
+
+void gameMap::mapMap1() {
+	if (cnt < 80) {
+		gamemap.tile[25][26] = -1;
+		gamemap.tile[25][35] = 145;
+
+		gamemap.tile[16][27] = -1;
+		gamemap.tile[16][19] = -1;
+
+		gamemap.tile[12][34] = -1;
+		gamemap.tile[16][35] = 145;
+		gamemap.tile[8][35] = 145;
+
+		gamemap.tile[4][25] = -1;
+		gamemap.tile[4][29] = 145;
+	}
+	else if (cnt < 160) {
+		gamemap.tile[25][35] = -1;
+		gamemap.tile[25][26] = 145;
+
+		gamemap.tile[16][27] = 145;
+		gamemap.tile[16][19] = 145;
+
+		gamemap.tile[12][34] = 145;
+		gamemap.tile[16][35] = -1;
+		gamemap.tile[8][35] = -1;
+
+		gamemap.tile[4][29] = -1;
+		gamemap.tile[4][25] = 145;
+
+	}
+	if (cnt >= 160) {
+		cnt = 0;
+	}
+	cnt++;
+}
+
+void gameMap::mapMap2() {
+	if (cnt < 80) {
+		gamemap.tile[10][25] = -1;
+		gamemap.tile[14][25] = 145;
+		gamemap.tile[17][25] = -1;
+
+		gamemap.tile[13][31] = 145;
+		gamemap.tile[16][31] = -1;
+
+		gamemap.tile[10][13] = -1;
+		gamemap.tile[17][13] = -1;
+		gamemap.tile[25][11] = -1;
+		gamemap.tile[12][6] = 145;
+		gamemap.tile[19][5] = 145;
+		
+
+		
+	}
+	else if (cnt < 160) {
+		gamemap.tile[10][25] = 145;
+		gamemap.tile[14][25] = -1;
+		gamemap.tile[17][25] = 145;
+
+		gamemap.tile[13][31] = -1;
+		gamemap.tile[16][31] = 145;
+
+		gamemap.tile[10][13] = 145;
+		gamemap.tile[17][13] = 145;
+		gamemap.tile[25][11] = 145;
+		gamemap.tile[12][6] = -1;
+		gamemap.tile[19][5] = -1;
+
+	}
+	if (cnt >= 160) {
+		cnt = 0;
+	}
+	cnt++;
 }

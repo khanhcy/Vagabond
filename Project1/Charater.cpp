@@ -10,7 +10,7 @@ Charater::Charater()
 	status = -1;
 	//width_frame = 0;
 	//height_frame = 0;
-	inputType.right = 1;
+	inputType.right = 0;
 	inputType.left = 0;
 	inputType.jump = 0;
 	on_ground = false;
@@ -24,8 +24,6 @@ Charater::Charater()
 	frameJump = 0;
 	frameRunEnd = 0;
 	frameDash = 0;
-
-
 	dashTime = 0;
 };
 
@@ -183,6 +181,10 @@ void Charater::loadHealBar() {
 
 }
 void Charater::animationKnockBack() {
+	if (inputType.left == 0 && inputType.right == 0 && inputType.jump == 0 && status == -1) {
+		commonFuc::render(idleAnimationRight[(frame / 10) % 2]);
+		frame++;
+	}
 	if (knoback == true && alive == true) {
 		if (status == run_right) {
 			commonFuc::render(jumpAnimationRight[2]);
@@ -526,7 +528,7 @@ void Charater::doPlayer(gameMap& game_map) {
 	if (jumping == 1) {
 		Uint32 jumpTime = SDL_GetTicks() - jumpStartTime;
 		if (on_block) {
-			y_val += 2;
+			y_val += 1;
 		}
 		else {
 			if (jump_duration <= 200) { // Giữ phím nhảy trong thời gian ngắn (200ms)
@@ -539,7 +541,7 @@ void Charater::doPlayer(gameMap& game_map) {
 		}
 	}
 	if (checkThorn(game_map)) {
-		alive = false;
+		/*alive = false;*/
 	}
 	centerEntityOnMap(game_map);
 	checkToMap(game_map);
@@ -645,11 +647,14 @@ bool Charater::checkThorn(gameMap& game_map)
 					game_map.setMap(i, j, 178);
 					key--;
 				}
+				if (j == 0) {
+					nextMap = true;
+				}
 			}
 			else {
 				if (game_map.getMap().tile[i][j] == 177) {
 					if (x_val > 0) {
-						x_pos -= 10;
+						x_pos -= 15;
 					}
 					else {
 						x_pos += 10;

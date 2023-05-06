@@ -1,6 +1,21 @@
 ﻿
 #include "RenderWindow.h"
 
+bool commonFuc::init()
+{
+    //Initialization flag
+    bool success = true;
+
+    //Initialize SDL
+    if (SDL_Init(SDL_INIT_EVERYTHING))
+    {
+        printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+        success = false;
+    }
+
+    return success;
+}
+
 
 void commonFuc::RenderWindow(const char* p_title, int p_w, int p_h)
 
@@ -113,16 +128,6 @@ bool commonFuc::check_wall(int n) {
 	return false;
 }
 
-
-
-//bool commonFuc::check_thorn(int n) {
-//	for (int i = 0; i < sizeof(Map_thorn); i++) {
-//		if (n == Map_thorn[i]) {
-//			return true;
-//		}
-//	}
-//	return false;
-//}
 bool commonFuc::CheckCollision(const SDL_Rect& object1, const SDL_Rect& object2) {
     // Kiểm tra va chạm giữa hai hình chữ nhật bằng cách kiểm tra xem chúng có chồng lên nhau không
     if (object1.x + object1.w <= object2.x) {

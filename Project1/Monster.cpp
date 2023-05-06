@@ -146,17 +146,24 @@ void Monster::show() {
 	dest.x = x_pos - map_x;
 	dest.y = y_pos - map_y;
 	if (alive == false) {
-		if (commback > 100) {
+		if (commback > 200) {
 			alive = true;
 			commback = 0;
 		}
 		commback++;
+		if (commback <= 45) {
+			animationSkeletonDead();
+		}
+		else {
+			frameDead = 0;
+		}
+
 	}
 	else {
+		commback = 0;
 		animationSkeletonWalk();
 		animationSkeletonAttack();
 		animationSkeletonHit();
-		animationSkeletonDead();
 		if (healSkeleton >= 3) {
 			alive = false;
 			healSkeleton = 0;
@@ -298,7 +305,7 @@ void Monster::checkToMap(gameMap& game_map) {
 	// Kiểm tra va chạm theo chiều ngang
 	if (x_h1 >= 0 && x_h2 < MAX_MAP_X && y_h1 >= 0 && y_h2 < MAX_MAP_Y) {
 		if (x_val > 0) {
-			if (game_map.getMap().tile[y_h1][x_h2] != -1 || game_map.getMap().tile[y_h2][x_h2] != -1) {
+			if (commonFuc::check_wall( game_map.getMap().tile[y_h1][x_h2]) == 1 ||commonFuc::check_wall( game_map.getMap().tile[y_h2][x_h2]) == 1) {
 				x_pos = x_h2 * TILE_SIZE - width_frame - 1;
 				x_val = 0;
 				/*if (inputType.right == 1 && can_move == true) {
@@ -310,7 +317,7 @@ void Monster::checkToMap(gameMap& game_map) {
 			}
 		}
 		else if (x_val < 0) {
-			if (game_map.getMap().tile[y_h1][x_h1] != -1 || game_map.getMap().tile[y_h2][x_h1] != -1) {
+			if (commonFuc::check_wall(game_map.getMap().tile[y_h1][x_h1]) == 1 || commonFuc::check_wall(game_map.getMap().tile[y_h2][x_h1]) == 1) {
 				x_pos = (x_h1 + 1) * TILE_SIZE;
 				x_val = 0;
 			}
@@ -320,7 +327,7 @@ void Monster::checkToMap(gameMap& game_map) {
 	// Kiểm tra va chạm theo chiều dọc
 	if (x_v1 >= 0 && x_v2 < MAX_MAP_X && y_v1 >= 0 && y_v2 < MAX_MAP_Y) {
 		if (y_val > 0) {
-			if (game_map.getMap().tile[y_v2][x_v1] != -1 || game_map.getMap().tile[y_v2][x_v2] != -1) {
+			if (commonFuc::check_wall(game_map.getMap().tile[y_v2][x_v1]) == 1 || commonFuc::check_wall(game_map.getMap().tile[y_v2][x_v2]) == 1) {
 				y_pos = y_v2 * TILE_SIZE - height_frame - 1;
 				y_val = 0;
 				on_ground = true;
@@ -331,7 +338,7 @@ void Monster::checkToMap(gameMap& game_map) {
 			}
 		}
 		else if (y_val < 0) {
-			if (game_map.getMap().tile[y_v1][x_v1] != -1 || game_map.getMap().tile[y_v1][x_v2] != -1) {
+			if (commonFuc::check_wall(game_map.getMap().tile[y_v1][x_v1]) == 1 || commonFuc::check_wall(game_map.getMap().tile[y_v1][x_v2]) == 1) {
 				y_pos = (y_v1 + 1) * TILE_SIZE;
 				y_val = 0;
 			}
@@ -343,6 +350,10 @@ void Monster::checkToMap(gameMap& game_map) {
 		//y_pos += y_val;
 	}
 	y_pos += y_val;
+	if (holdKey == true && alive == false) {
+		holdKey = false;
+		game_map.setMap(y_h1 + 1, y_h2 + 2, 146);
+	}
 }
 
 void Monster::SkeletonMove() {

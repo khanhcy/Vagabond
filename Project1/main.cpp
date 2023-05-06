@@ -44,6 +44,7 @@ std::vector<Monster*> make_Skeleton_list_map1()
         skeleton->setX_Pos(270);
         skeleton->setY_Pos(140);
         skeleton->SetAnimationPos(skeleton->getX_Pos() - 70, skeleton->getX_Pos() + 70);
+        skeleton->holdKey = true;
         list_skeleton.push_back(skeleton);
     }
     {
@@ -66,7 +67,8 @@ std::vector<Monster*> make_Skeleton_list_map2()
         skeleton->SetClips();
         skeleton->setX_Pos(130);
         skeleton->setY_Pos(140);
-        skeleton->SetAnimationPos(skeleton->getX_Pos() - 90, skeleton->getX_Pos() + 90);
+        skeleton->SetAnimationPos(skeleton->getX_Pos() - 80, skeleton->getX_Pos() + 80);
+        skeleton->holdKey = true;
         list_skeleton.push_back(skeleton);
     }
     {
@@ -102,6 +104,7 @@ std::vector<Monster*> make_Skeleton_list_map2()
         skeleton->SetClips();
         skeleton->setX_Pos(1090);
         skeleton->setY_Pos(800);
+        skeleton->holdKey = true;
         skeleton->SetAnimationPos(skeleton->getX_Pos() - 90, skeleton->getX_Pos() + 90);
         list_skeleton.push_back(skeleton);
     }
@@ -111,16 +114,26 @@ std::vector<Monster*> make_Skeleton_list_map2()
 int main(int argc, char* args[])
 {
     Timer Fps_Time;
+    commonFuc::init();
     commonFuc::RenderWindow("Vagabond", SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    Entity background(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, commonFuc::loadTexture("image/background/0.png"));
+    Entity background1(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, commonFuc::loadTexture("image/UI/menuGame.png"));
+    std::vector<Entity> background2;
+    {
+        Entity E1(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, commonFuc::loadTexture("image/background/background_layer_1.png"));
+        Entity E2(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, commonFuc::loadTexture("image/background/background_layer_2.png"));
+        Entity E3(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, commonFuc::loadTexture("image/background/background_layer_3.png"));
+        background2.push_back(E1);
+        background2.push_back(E2);
+        background2.push_back(E3);
+    }
+   
 
     gameMap game_map;
     game_map.loadMap("image/map/map1.csv", "image/map/DungeonTileSet.png");
     bool gameRunning = true;
 
     Charater charaterr;
-
     Monster monster;
     charaterr.loadImage();
     charaterr.loadHealBar();
@@ -140,14 +153,28 @@ int main(int argc, char* args[])
             {
                 gameRunning = false;
             }
+
             charaterr.HandleInputAction(event);
         }
     	//SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         commonFuc::clear();
-        commonFuc::render(background);
+        if (game_map.statusMap == 1) {
+            commonFuc::render(background1);
+        }
+        else {
+            commonFuc::render(background2[0]);
+            commonFuc::render(background2[1]);
+            commonFuc::render(background2[2]);
+        }
         charaterr.setMapXY(game_map.getMap().startX, game_map.getMap().startY);
         charaterr.doPlayer(game_map);
         charaterr.show();
+        if (game_map.statusMap == 1) {
+            game_map.mapMap1();
+        }
+        else {
+            game_map.mapMap2();
+        }
         game_map.drawMap();
         charaterr.showBar();
         if (game_map.statusMap == 1) {
@@ -172,6 +199,7 @@ int main(int argc, char* args[])
                 game_map.statusMap = 2;
                 charaterr.nextMap = false;
                 charaterr.setstatusMap(2);
+                charaterr.resetcharater();
             }
         }
         else {
@@ -192,7 +220,6 @@ int main(int argc, char* args[])
                 skeleton->SkeletonMeetPlayer(charaterr.getCharater());
             }
         }
-
         commonFuc::display();
 
          int real_Time = Fps_Time.GetTicks();

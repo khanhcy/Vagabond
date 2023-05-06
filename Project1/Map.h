@@ -42,10 +42,12 @@ public:
     void getStartY(const int startY_) { gamemap.startY = startY_; };
     void setMap(int x, int y, int z) { gamemap.tile[x][y] = z; }
     void nextMap();
+    void mapMap1();
+    void mapMap2();
     int statusMap = 1;
 private:
+    int cnt = 0;
     map gamemap;
     //số lượng tileset
     std::vector<Entity> tileSet;
-    
 };

@@ -1,20 +1,10 @@
-﻿  Entity.cpp
-D:\hoc\làm game\Project\Project1\commonFuncion.h(34,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
-D:\hoc\làm game\Project\Project1\Entity.cpp(26,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\Entity.cpp(27,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\Entity.cpp(57,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\Entity.cpp(58,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\hoc\làm game\Project\Project1\Entity.cpp(63,19): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Entity.cpp(64,19): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  main.cpp
-D:\hoc\làm game\Project\Project1\commonFuncion.h(34,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+﻿  main.cpp
+D:\hoc\làm game\Project\Project1\commonFuncion.h(38,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
 D:\hoc\làm game\Project\Project1\Map.h(28,2): warning C4091: 'typedef ': ignored on left of 'map' when no variable is declared
-D:\hoc\làm game\Project\Project1\Charater.h(75,20): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-D:\hoc\làm game\Project\Project1\Charater.h(75,20): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\hoc\làm game\Project\Project1\Charater.h(75,27): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-D:\hoc\làm game\Project\Project1\Charater.h(75,27): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.h(76,20): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+D:\hoc\làm game\Project\Project1\Charater.h(76,20): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\hoc\làm game\Project\Project1\Charater.h(76,27): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+D:\hoc\làm game\Project\Project1\Charater.h(76,27): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 D:\hoc\làm game\Project\Project1\Monster.h(63,26): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
 D:\hoc\làm game\Project\Project1\Monster.h(64,26): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
-x64\Debug\Entity.obj : warning LNK4042: object specified more than once; extras ignored
   Project1.vcxproj -> D:\hoc\làm game\Project\x64\Debug\Project1.exe

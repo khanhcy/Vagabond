@@ -71,6 +71,7 @@ public:
 	}
 	void HealBar();
 	void loadHealBar();
+	bool isWin = false;
 	SDL_Rect getCharater() {
 		SDL_Rect res = { x_pos, y_pos, height_frame, height_frame };
 		return res;

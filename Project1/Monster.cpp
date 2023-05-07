@@ -376,7 +376,7 @@ void Monster::SkeletonMove() {
 
 
 void Monster::SkeletonMeetPlayer(SDL_Rect player) {
-	if (player.x >= animationA && player.x <= animationB/* && player.y - y_pos < 5 && player.y - y_pos > -5*/) {
+	if (player.x >= animationA && player.x <= animationB && player.y - y_pos < 5 && player.y - y_pos > -5) {
 		if (player.x + player.w < x_pos && can_moveR == true) {
 			can_moveR = false;
 			can_moveL = true;

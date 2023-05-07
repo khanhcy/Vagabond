@@ -5,13 +5,16 @@ bool commonFuc::init()
 {
     //Initialization flag
     bool success = true;
-
     //Initialize SDL
-    if (SDL_Init(SDL_INIT_EVERYTHING))
-    {
-        printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
-        success = false;
-    }
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
+	{
+		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+		success = false;
+	}
+	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
+	{
+		printf("Warning: Linear texture filtering not enabled!");
+	}
 
     return success;
 }
@@ -100,8 +103,8 @@ void commonFuc::render(SDL_Texture* tex, SDL_Rect *src, SDL_Rect dst, double ang
 
 void commonFuc::render(SDL_Texture* tex, SDL_Rect *src, SDL_Rect dst) {
 
-    //SDL_SetRenderDrawColor(renderer, 200, 0, 0, 255);
-    //SDL_RenderDrawRect(renderer, src);
+    SDL_SetRenderDrawColor(renderer, 200, 0, 0, 255);
+    SDL_RenderDrawRect(renderer, src);
     SDL_RenderCopy(renderer, tex, src, &dst);
 }
 

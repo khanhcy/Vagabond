@@ -528,7 +528,7 @@ void Charater::doPlayer(gameMap& game_map) {
 	if (jumping == 1) {
 		Uint32 jumpTime = SDL_GetTicks() - jumpStartTime;
 		if (on_block) {
-			y_val += 1;
+			y_val += 0;
 		}
 		else {
 			if (jump_duration <= 200) { // Giữ phím nhảy trong thời gian ngắn (200ms)
@@ -541,7 +541,7 @@ void Charater::doPlayer(gameMap& game_map) {
 		}
 	}
 	if (checkThorn(game_map)) {
-		/*alive = false;*/
+		alive = false;
 	}
 	centerEntityOnMap(game_map);
 	checkToMap(game_map);
@@ -650,6 +650,10 @@ bool Charater::checkThorn(gameMap& game_map)
 				if (j == 0) {
 					nextMap = true;
 				}
+				if (game_map.statusMap != 1 && j >= 37 && i >= 26) {
+					isWin = true;
+					std::cout << "fsdfsadfsadfs" << std::endl;
+				}
 			}
 			else {
 				if (game_map.getMap().tile[i][j] == 177) {
@@ -662,6 +666,7 @@ bool Charater::checkThorn(gameMap& game_map)
 					x_val = 0;
 				}
 			}
+			std::cout << i << " " << j << std::endl;
 
 			if (check_thorn(game_map.getMap().tile[i][j]) == 1)
 			{
@@ -669,6 +674,7 @@ bool Charater::checkThorn(gameMap& game_map)
 			}	
 		}
 	}
+
 	return false;
 }
 bool Charater::checkKey(gameMap& game_map)
@@ -710,7 +716,6 @@ void Charater::centerEntityOnMap(gameMap& game_map) {
 		game_map.getStartY(game_map.getMap().maxY - SCREEN_HEIGHT);
 
 	}
-	std::cout << x_pos << " " << y_pos << std::endl;
 }
 bool Charater::attackMonster(SDL_Rect& Monster) {
 

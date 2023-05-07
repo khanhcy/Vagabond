@@ -9,6 +9,9 @@
 #include <fstream> 
 #include<sstream>
 #include<cmath>
+#include<SDL_mixer.h>
+
+
 
 
 static SDL_Window* window = NULL;
@@ -22,6 +25,7 @@ const int SCREEN_BPP = 32;
 const int COLOR_KEY_R = 167;
 const int COLOR_KEY_G = 175;
 const int COLOR_KEY_B = 180;
+
 
 typedef struct Input {
 	int left;
